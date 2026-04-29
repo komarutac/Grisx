@@ -1,3 +1,0 @@
-#ifndef C_SHARED_FUNCTION_HEADER
-#define C_SHARED_FUNCTION_HEADER
-#endif

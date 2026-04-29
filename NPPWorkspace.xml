@@ -114,9 +114,15 @@
                                 <File name="Source\arch\i486\include\Device\CPU\IDTLoad.o" />
                                 <File name="Source\arch\i486\include\Device\CPU\ISRSHandler.o" />
                                 <File name="Source\arch\i486\include\Device\CPU\ISRStub.o" />
+                                <File name="Source\arch\i486\include\Device\CPU\GDT.c" />
+                                <File name="Source\arch\i486\include\Device\CPU\IDT.c" />
+                                <File name="Source\arch\i486\include\Device\CPU\ISRS.c" />
+                                <File name="Source\arch\i486\include\Device\CPU\PIC.c" />
+                                <File name="Source\arch\i486\include\Device\CPU\PIT.c" />
                             </Folder>
                             <Folder name="FloppyController">
                                 <File name="Source\arch\i486\include\Device\FloppyController\Floppy.h" />
+                                <File name="Source\arch\i486\include\Device\FloppyController\Floppy.c" />
                             </Folder>
                             <Folder name="ISA">
                                 <Folder name="PnP">
@@ -131,16 +137,29 @@
                                 <File name="Source\arch\i486\include\Device\Terminal\Keyboard.h" />
                                 <File name="Source\arch\i486\include\Device\Terminal\Serial.h" />
                                 <File name="Source\arch\i486\include\Device\Terminal\SerialPorts.h" />
+                                <File name="Source\arch\i486\include\Device\Terminal\Console.c" />
+                                <File name="Source\arch\i486\include\Device\Terminal\Keyboard.c" />
+                                <File name="Source\arch\i486\include\Device\Terminal\Parallel.c" />
+                                <File name="Source\arch\i486\include\Device\Terminal\Serial.c" />
                             </Folder>
                             <Folder name="VGA">
                                 <File name="Source\arch\i486\include\Device\VGA\ColorTextMode.h" />
                                 <File name="Source\arch\i486\include\Device\VGA\Cursor.h" />
                                 <File name="Source\arch\i486\include\Device\VGA\Font8x8.h" />
+                                <File name="Source\arch\i486\include\Device\VGA\Graphics.h" />
+                                <File name="Source\arch\i486\include\Device\VGA\Graphics.c" />
                             </Folder>
                             <File name="Source\arch\i486\include\Device\BDA.h" />
                             <File name="Source\arch\i486\include\Device\Device.h" />
                             <File name="Source\arch\i486\include\Device\IO.h" />
                             <File name="Source\arch\i486\include\Device\Memory.h" />
+                            <Folder name="ACPI">
+                                <File name="Source\arch\i486\include\Device\ACPI\ACPI.c" />
+                                <File name="Source\arch\i486\include\Device\ACPI\ACPI.h" />
+                                <File name="Source\arch\i486\include\Device\ACPI\RSDP.h" />
+                                <File name="Source\arch\i486\include\Device\ACPI\XSDP.h" />
+                            </Folder>
+                            <File name="Source\arch\i486\include\Device\Memory.c" />
                         </Folder>
                         <Folder name="Shared">
                             <File name="Source\arch\i486\include\Shared\Address.h" />
@@ -158,6 +177,8 @@
                             <File name="Source\arch\i486\include\Shared\Xorshift32.h" />
                             <File name="Source\arch\i486\include\Shared\TestSyscall.o" />
                             <File name="Source\arch\i486\include\Shared\Execute.h" />
+                            <File name="Source\arch\i486\include\Shared\Die.c" />
+                            <File name="Source\arch\i486\include\Shared\String.c" />
                         </Folder>
                     </Folder>
                     <File name="Source\arch\i486\boot.S" />
@@ -181,6 +202,10 @@
                     <File name="Source\arch\Universal\Config.h" />
                     <File name="Source\arch\Universal\GAL.h" />
                     <File name="Source\arch\Universal\DAL.h" />
+                    <File name="Source\arch\Universal\VFS.c" />
+                    <File name="Source\arch\Universal\VFS.h" />
+                    <File name="Source\arch\Universal\List.h" />
+                    <File name="Source\arch\Universal\DAL.c" />
                 </Folder>
             </Folder>
             <File name="Source\Makefile" />
@@ -193,5 +218,10 @@
         <File name=".gitignore" />
         <File name="LICENSE" />
         <File name="README.md" />
+    </Project>
+    <Project name="Userland">
+        <Folder name="hello">
+            <File name="Source\Userland\hello\main.c" />
+        </Folder>
     </Project>
 </NotepadPlus>

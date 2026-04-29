@@ -1,9 +1,12 @@
 HOST?=i686-elf
-HOSTARCH=i486
+PLATFORM?=IntelPC
+BITS?=32
+LOADER?=multiboot
+EDITION?=base
 
-CC=i686-elf-gcc
+CC=$(HOST)-gcc
 QEMU=qemu-system-x86_64
-QEMUFlags=-kernel Base.kernel -serial stdio
+QEMUFlags=-kernel $(PLATFORM)-$(BITS)_$(EDITION).elf -serial stdio
 
 CFLAGS?=-O2 -g
 CPPFLAGS?=
@@ -16,9 +19,10 @@ EXEC_PREFIX?=$(PREFIX)
 BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
-ARCHDIR=arch/$(HOSTARCH)
+Universal=arch/Universal
+ARCHDIR=arch/$(PLATFORM)/$(BITS)
 
-CFLAGS:=$(CFLAGS) -ffreestanding -O2 -Wall -Wextra -I $(ARCHDIR)/include -I arch/Universal/ -nostdlib -lgcc
+CFLAGS:=$(CFLAGS) -ffreestanding -O2 -Wall -Wextra -I $(ARCHDIR)/include -I $(Universal) -nostdlib -lgcc
 CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
 LDFLAGS:=
 LIBS:=$(LIBS)
@@ -41,16 +45,16 @@ $(LDFLAGS) \
 $(KERNEL_OBJS) \
 $(LIBS) \
 
-.PHONY: all clean install install-headers
-.SUFFIXES: .o .c .S .asm .16.asm
+.PHONY: all clean
+.SUFFIXES: .o .c .S .asm
 
 all: Base.kernel
 
 run:
 	$(QEMU) $(QEMUFlags)
 
-Base.kernel: $(OBJS) $(ARCHDIR)/linker.ld
-	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
+Base.kernel: $(OBJS) $(ARCHDIR)/$(LOADER)/linker.ld
+	$(CC) -T $(ARCHDIR)/$(LOADER)/linker.ld -o $(PLATFORM)-$(BITS)_$(EDITION).elf $(CFLAGS) $(LINK_LIST)
 
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o kernel/arch/i386/switch.o:
 	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
@@ -62,20 +66,11 @@ $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o kernel/arch/i386/switch.o:
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 	
 .asm.o:
-	nasm  -f elf32 $< -o $@
+	nasm -f elf$(BITS) $< -o $@
 
 clean:
-	rm -f Base.kernel
-	rm -f $(OBJS) *.o */*.o */*/*.o
-	rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d
-
-install: install-headers install-kernel
-
-install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)
-	cp -R --preserve=timestamps $(ARCHDIR)/include/. $(DESTDIR)$(INCLUDEDIR)/.
-
-install-kernel: Base.kernel
-	mkdir -p $(DESTDIR)$(BOOTDIR)
+	rm -f $(PLATFORM)-$(BITS)_$(EDITION).elf
+	rm -f $(OBJS) *.o */*.o */*/*.o */*/*/*/.o
+	rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d */*/*/*/.d
 
 -include $(OBJS:.o=.d)

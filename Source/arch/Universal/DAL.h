@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 #define DeviceBusCPU 0x01
 #define DeviceBusISA 0x02
 #define DeviceBusPCI 0x03
@@ -76,6 +77,7 @@ struct _DALDevice {
 	int Bar2;
 	int Bar3;
 	int Bar4;
+    bool (*Test)(struct _DALDevice*);
     void (*Initialize)(struct _DALDevice*);
     void (*Uninitialize)(struct _DALDevice*);
     int (*GetStatus)(struct _DALDevice*);
@@ -90,3 +92,6 @@ extern void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* Me
 extern void PlaceholderInit(DALDevice* Device);
 extern void PlaceholderUninit(DALDevice* Device);
 extern void* PlaceholderCommand(int Function, void* Arguments, DALDevice* Device);
+extern int MessageCallback(int Message, DALDevice* Device);
+extern void UninitializeDevices(DALDevice* Devices[]);
+extern DALDevice* DALGet(char* Name, DALDevice** List);
