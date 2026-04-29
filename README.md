@@ -1,5 +1,7 @@
 # Supported Platforms
 1. IntelPC, 32
+# Supported Loaders
+1. Multiboot (IntelPC, 32)
 # Platform IntelPC, 32
 ## Build Requirements
 1. make
@@ -13,5 +15,5 @@
 ## Build
 The compiled binary will be placed in the root of the Source folder.
 ```sh
-make PLATFORM=IntelPC BITS=32 all
+make PLATFORM=IntelPC BITS=32 LOADER=Loader all
 ```
