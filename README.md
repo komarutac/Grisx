@@ -2,7 +2,7 @@
 1. make
 2. i686-elf-gcc
 3. nasm
-# Supported Platform
+# Supported Platforms
 1. IntelPC, 32
 # Minimum System Requirements (IntelPC, 32)
 1. CPU: 486
