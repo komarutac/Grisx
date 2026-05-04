@@ -11,8 +11,10 @@
 DALDevice* KeyboardDevice = &(DALDevice)
 {
 	.Name = "keyboardctrl",
-	.Bus = DeviceBusISA,
-	.Type = DeviceTypeKeyboard,
+	.Properties = &(DALProperties) {
+		.Bus = DeviceBusISA,
+		.Type = DeviceTypeKeyboard
+	},
 	.Uninitialize = KeyboardUninit,
 	.Initialize = KeyboardInit,
 	.Command = 0

@@ -11,8 +11,10 @@ volatile Registers LastRegisters;
 
 DALDevice* PITDevice = &(DALDevice){
 	.Name = "timer",
-	.Bus = DeviceBusISA,
-	.Type = DeviceTypeTimer,
+	.Properties = &(DALProperties) {
+		.Bus = DeviceBusISA,
+		.Type = DeviceTypeTimer,
+	},
 	.Uninitialize = PITUninit,
 	.Initialize = PITInit,
 	.Command = PITCommandFunc

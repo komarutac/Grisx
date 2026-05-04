@@ -23,8 +23,10 @@ char* BusHost = "bushost";
 DALDevice* PCIDevice = &(DALDevice)
 {
 	.Name = "pcienum",
-	.Bus = DeviceBusCPU,
-	.Type = DeviceTypeBus,
+	.Properties = &(DALProperties) {
+		.Bus = DeviceBusCPU,
+		.Type = DeviceTypeBus,
+	},
 	.Uninitialize = PCIUninit,
 	.Initialize = PCIInit,
 	.Command = PCICommand
@@ -97,7 +99,9 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 		DALDevice* SubDevice = &(DALDevice)
 		{
 			.Name = BusName,
-			.Bus = DeviceBusPCI,
+			.Properties = &(DALProperties) {
+				.Bus = DeviceBusPCI
+			}
 		};
 		CheckPCIBus(SecondaryBus, SubDevice);
 		RegisterDALDeviceChild(ParentDevice, SubDevice, PCIDevice->SendKrnMessage);
@@ -117,7 +121,9 @@ DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice)
 	DALDevice* SubDevice = &(DALDevice)
 	{
 		.Name = Generic,
-		.Bus = DeviceBusPCI,
+		.Properties = &(DALProperties) {
+			.Bus = DeviceBusPCI
+		}
 	};
 	
 	CheckPCIFunction(Bus, Device, Function, SubDevice);
@@ -185,7 +191,9 @@ void PCIInit(DALDevice* Device)
 		DALDevice* BusDevice = &(DALDevice)
 		{
 			.Name = BusHost,
-			.Bus = DeviceBusPCI,
+			.Properties = &(DALProperties) {
+				.Bus = DeviceBusPCI
+			}
 		};
 		CheckPCIBus(0, BusDevice);
 		if (BusDevice != NULL)
@@ -207,7 +215,9 @@ void PCIInit(DALDevice* Device)
 			DALDevice* BusDevice = &(DALDevice)
 			{
 				.Name = BusHost,
-				.Bus = DeviceBusPCI,
+				.Properties = &(DALProperties) {
+					.Bus = DeviceBusPCI
+				}
 			};
 			CheckPCIBus(Bus, BusDevice);
 			if (BusDevice != NULL)
