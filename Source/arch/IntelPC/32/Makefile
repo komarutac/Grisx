@@ -1,19 +1,10 @@
-KERNEL_ARCH_CFLAGS=
-KERNEL_ARCH_CPPFLAGS=
-KERNEL_ARCH_LDFLAGS=
-KERNEL_ARCH_LIBS=
+CFLAGS+=-I $(ARCHDIR)/include
 
-KERNEL_ARCH_OBJS=$(ARCHDIR)/$(LOADER)/boot.o \
-$(Universal)/Die.o \
-$(Universal)/DAL.o \
-$(Universal)/VFS.o \
-$(Universal)/KernelMain.o \
+KERNEL_ARCH_OBJS+=$(ARCHDIR)/$(LOADER)/boot.o \
+$(ARCHDIR)/include/Abstraction/AAL.o \
 $(ARCHDIR)/include/Device/IO.o \
 $(ARCHDIR)/include/Device/Terminal/Serial.o \
 $(ARCHDIR)/include/Device/Terminal/Parallel.o \
-$(ARCHDIR)/include/Device/Memory.o \
-$(ARCHDIR)/include/Shared/Def.o \
-$(ARCHDIR)/include/Shared/String.o \
 $(ARCHDIR)/include/Device/CPU/GDT.o \
 $(ARCHDIR)/include/Device/CPU/GDTFlush.o \
 $(ARCHDIR)/include/Device/CPU/IDTLoad.o \
@@ -57,7 +48,6 @@ $(ARCHDIR)/include/Device/CPU/Exceptions/MachineCheck.o \
 $(ARCHDIR)/include/Device/CPU/Exceptions/SIMDFloatingPoint.o \
 $(ARCHDIR)/include/Device/CPU/Exceptions/Virtualization.o \
 $(ARCHDIR)/include/Device/CPU/Exceptions/ControlProtectionFault.o \
-$(ARCHDIR)/include/Shared/TestSyscall.o \
 $(ARCHDIR)/include/Device/CPU/PIC.o \
 $(ARCHDIR)/include/Device/CPU/PIT.o \
 $(ARCHDIR)/include/Device/CPU/IDT.o \
@@ -69,4 +59,4 @@ $(ARCHDIR)/include/Device/PCI/PCI.o \
 $(ARCHDIR)/include/Device/ACPI/ACPI.o \
 $(ARCHDIR)/include/Device/Terminal/Console.o \
 $(ARCHDIR)/include/Shared/Die.o \
-$(ARCHDIR)/main.o \
+$(ARCHDIR)/main.o
