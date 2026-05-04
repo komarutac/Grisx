@@ -1,6 +1,6 @@
 #include "IDT.h"
 #include <stdint.h>
-#include <Device/Memory.h>
+#include <string.h>
 #include "ISRS.h"
 #include <Device/Terminal/Console.h>
 IDTEntry IDT[256];

@@ -4,8 +4,7 @@
 #include "ACPI.h"
 #include "RSDP.h"
 #include <Device/Terminal/Console.h>
-#include <Device/Memory.h>
-#include <Device/CPU/PIT.h>
+#include <string.h>
 
 // TODO: Make the SearchForRSDP function better
 size_t SearchForRSDP()
@@ -114,8 +113,10 @@ void ACPINoDriverInit(DALDevice* Device)
 DALDevice* ACPISystem = &(DALDevice)
 {
 	.Name = "acpienum",
-	.Bus = DeviceBusCPU,
-	.Type = DeviceTypePowerManagement,
+	.Properties = &(DALProperties) {
+		.Bus = DeviceBusCPU,
+		.Type = DeviceTypePowerManagement
+	},
 	.Uninitialize = ACPIUninit,
 	.Initialize = ACPIInit,
 	.Command = ACPICommand
