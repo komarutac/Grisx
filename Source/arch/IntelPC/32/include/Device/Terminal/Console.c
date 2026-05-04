@@ -1,6 +1,7 @@
 #include "Console.h"
 #include <stdarg.h>
-#include <Shared/String.h>
+#include <string.h>
+#include <StringConvert.h>
 ConsoleStruct* DefaultConsole = &(ConsoleStruct){};
 ConsoleStruct* DebugConsole = &(ConsoleStruct){};
 ConsoleStruct* NullConsole = 0;

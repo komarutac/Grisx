@@ -20,12 +20,13 @@ void KernelMain()
 	VFSInit(MessageCallback);
 	RegisterDALDevice(ArchDevice, MessageCallback);
 	RegisterDALDevice(PCIDevice, MessageCallback);
-	if (DALGet("storagectrl", DALDevices) == 0)
+	if (DALFindFirst((DALProperties) {
+		.Type = DeviceTypeDiskController
+	}, DALDevices, true) == 0)
 	{
 		NoStorageDevice();
 		IntializationFailure();
-		for (;;);
+		return;
 	}
 	IntializationFailure();
-	for (;;);
 }

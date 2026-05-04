@@ -1,6 +1,7 @@
 #include "ColorTextMode.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include <Device/IO.h>
 #include "Cursor.h"
 
