@@ -25,3 +25,6 @@ Start:
     push %ebx
     call GDTInstall
     call Loader
+    jmp Loop
+Loop:
+    jmp Loop
