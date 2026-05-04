@@ -5,4 +5,3 @@
 #ifndef NULL
 #define NULL 0
 #endif
-extern int ConFormatTo(DefaultConsole, char* restrict, ...);
