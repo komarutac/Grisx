@@ -12,10 +12,10 @@
 2. Memory: 2 MB
 3. Video: EGA (Text Mode)
 4. Machine: PCI
-## Build
-The compiled binary will be placed in the root of the Source folder.
+# Build
+The compiled binary will be placed in the root of the Source folder (Source/Platform-Bits_Edition.elf).
 ```sh
-make PLATFORM=IntelPC BITS=32 LOADER=Loader all
+make PLATFORM=Platform EDITION=Edition AS=Assembler CC=CCompiler BITS=Bits LOADER=Loader all
 ```
 # Credits
 Parts of the directory structure and files are from https://gitlab.com/sortie/meaty-skeleton
