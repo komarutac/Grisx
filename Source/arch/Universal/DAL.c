@@ -3,6 +3,7 @@
 #include <Device/Terminal/Console.h>
 #include <VFS.h>
 #include <Die.h>
+#include <string.h>
 
 DALDevice* DALDevices[255];
 int DALDevicesIndex = 0;
@@ -36,7 +37,6 @@ int MessageCallback(int Message, DALDevice* Device)
 	
 	return 0;
 }
-
 void UninitializeDevices(DALDevice* Devices[])
 {
 	for (size_t i = 1; i < sizeof(DALDevice) / sizeof(Devices[0]); i++)
@@ -62,7 +62,26 @@ void UninitializeDevices(DALDevice* Devices[])
 	}  
 }
 
-DALDevice* DALGet(char* Name, DALDevice** List) {
+bool DALPropertiesCompare(DALProperties A, DALProperties B)
+{
+	if (A.Bus == B.Bus && A.Class == B.Class && A.Function == B.Function && A.IRQ == B.IRQ &&
+		A.Status == B.Status && A.SubClass == B.SubClass && A.Type == B.Type && A.Vendor == B.Vendor)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool DALPropertiesCompareType(DALProperties A, DALProperties B)
+{
+	if (A.Type == B.Type)
+	{
+		return true;
+	}
+	return false;
+}
+
+DALDevice* DALFindFirst(DALProperties Properties, DALDevice** List, bool TypeOnly) {
 	int i = 1;
 	for (;;) {
 		if (List[i] == NULL) {
@@ -70,14 +89,26 @@ DALDevice* DALGet(char* Name, DALDevice** List) {
 		}
 		
 		DALDevice* Device = List[i];
-		
-		if (strcmp(Device->Name, Name) == 0) {
-			return Device;
+		if (!TypeOnly)
+		{
+			if (DALPropertiesCompare(*Device->Properties, Properties))
+			{
+				return Device;
+			}
+		}
+		else
+		{
+			if (DALPropertiesCompareType(*Device->Properties, Properties))
+			{
+				return Device;
+			}
 		}
 		
-		if (Device->ChildrenCount > 0) {
-			DALDevice* Child = DALGet(Name, Device->Children);
-			if (Child != 0) {
+		if (Device->ChildrenCount > 0)
+		{
+			DALDevice* Child = DALFindFirst(Properties, Device->Children, TypeOnly);
+			if (Child != 0)
+			{
 				return Child;
 			}
 		}
@@ -86,8 +117,8 @@ DALDevice* DALGet(char* Name, DALDevice** List) {
 	}
 	return NULL;
 }
-
-void RegisterDALDevice(DALDevice* Device, void* MessageHandler) {
+void RegisterDALDevice(DALDevice* Device, void* MessageHandler)
+{
 	if (DALDevicesIndex++ < 255) {
 		if (Device->Name == NULL) {
 			Oops("invalid device name", "device");
@@ -109,8 +140,6 @@ void RegisterDALDevice(DALDevice* Device, void* MessageHandler) {
 		}
 	}
 }
-
-
 void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHandler) {
 	if (Parent->ChildrenCount++ < 255) {
 		if (Child->Name == NULL) {
@@ -133,18 +162,3 @@ void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHa
 		}
 	}
 }
-
-void PlaceholderInit(DALDevice* Device) {
-	Device->SendKrnMessage(MsgDevReady, Device);
-} 
-
-void PlaceholderUninit(DALDevice* Device) {
-	Device->SendKrnMessage(MsgDevUnloaded, Device);
-} 
-
-void* PlaceholderCommand(int Function, void* Arguments, DALDevice* Device) {
-	(void)Device;
-	(void)Arguments;
-	(void)Function;
-	return NULL;
-} 

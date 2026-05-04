@@ -61,8 +61,7 @@
 #define MsgDevPollNeeded 0x06
 #define MsgKrnShutdown 0x07
 
-struct _DALDevice {
-    char* Name;
+struct _DALProperties {
     int Bus;
     int IRQ;
     int Vendor;
@@ -71,6 +70,11 @@ struct _DALDevice {
     int SubClass;
     int Type;
     int Status;
+}; typedef struct _DALProperties DALProperties;
+
+struct _DALDevice {
+    char* Name;
+    DALProperties* Properties;
 	int ChildrenCount;
 	int Bar0;
 	int Bar1;
@@ -94,4 +98,6 @@ extern void PlaceholderUninit(DALDevice* Device);
 extern void* PlaceholderCommand(int Function, void* Arguments, DALDevice* Device);
 extern int MessageCallback(int Message, DALDevice* Device);
 extern void UninitializeDevices(DALDevice* Devices[]);
-extern DALDevice* DALGet(char* Name, DALDevice** List);
+extern DALDevice* DALFindFirst(DALProperties Properties, DALDevice** List, bool TypeOnly);
+extern bool DALPropertiesCompareType(DALProperties A, DALProperties B);
+extern bool DALPropertiesCompare(DALProperties A, DALProperties B);
