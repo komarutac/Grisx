@@ -3,24 +3,18 @@
 #define VCRTValue 0x3D5
 #define VGATextColor(Background, Foreground) (Foreground | Background << 4)
 #include <Device/IO.h>
-#include <Device/VGA/Font8x8.h>
 #include <Device/Terminal/Console.h>
 #include <stdint.h>
 #define VCPage (VCResWidth * VCResHeight)
-
 #define VGA_SEQ_INDEX_PORT 0x3C4
 #define VGA_SEQ_DATA_PORT 0x3C5
-
 #define VGA_GC_INDEX_PORT 0x3CE
 #define VGA_GC_DATA_PORT 0x3CF
-
 #define VGA_CRTC_INDEX_PORT 0x3D4
 #define VGA_CRTC_DATA_PORT 0x3D5
-
 #define VGA_SEQ_MAP_MASK_REG 0x02
 #define VGA_SEQ_CHARSET_REG 0x03
 #define VGA_SEQ_MEMORY_MODE_REG 0x04
-
 #define VGA_GC_READ_MAP_SELECT_REG 0x04
 #define VGA_GC_GRAPHICS_MODE_REG 0x05
 #define VGA_GC_MISC_REG 0x06

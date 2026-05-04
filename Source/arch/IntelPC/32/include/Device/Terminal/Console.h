@@ -1,8 +1,6 @@
 #pragma once
 #include <limits.h>
 #include <stdarg.h>
-#include <Shared/String.h>
-#include <Shared/Error.h>
 #include <Color.h>
 #define printf(...) ConFormatTo(DefaultConsole, __VA_ARGS__)
 #define DebugPrint(Message) ConFormatTo(DebugConsole, "\r\n%s,%d,%s: %s\r\n", __FILE__, __LINE__, __FUNCTION__, Message)
