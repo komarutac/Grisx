@@ -1,7 +1,8 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
-#include "DAL.h"
+#include <stddef.h>
+#include <DAL.h>
 
 struct _VFSMount {
 	char* Name;

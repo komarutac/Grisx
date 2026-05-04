@@ -1,6 +1,7 @@
 #include <VFS.h>
 #include <DAL.h>
 #include <stdint.h>
+#include <stddef.h>
 char* VFSLoopName = "vfsloop";
 
 VFSEntry* VirtualDev = &(VFSEntry) {
@@ -9,8 +10,10 @@ VFSEntry* VirtualDev = &(VFSEntry) {
 };
 
 DALDevice* VFSLoopback = &(DALDevice) {
-	.Bus = DeviceBusCPU,
-	.Type = DeviceTypePowerManagement
+	.Properties = &(DALProperties) {
+		.Bus = DeviceBusCPU,
+		.Type = DeviceTypePowerManagement
+	}
 };
 
 VFSMount* VirtualRootMount = &(VFSMount) {
