@@ -1,5 +1,5 @@
 #include <PPI.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 char* PPICurrentFunction = "undefined";
 Registers PrevRegisters;
 

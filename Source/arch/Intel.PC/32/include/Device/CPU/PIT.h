@@ -1,7 +1,7 @@
 #ifndef C_DEVICE_CPU_PIT_HEADER
 #define C_DEVICE_CPU_PIT_HEADER
 #include <Device/IO.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <Device/CPU/Interrupt.h>
 #include <DAL.h>
 #define PITCommand 0x43

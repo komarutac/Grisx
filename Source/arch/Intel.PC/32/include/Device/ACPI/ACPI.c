@@ -3,7 +3,7 @@
 #include <DAL.h>
 #include "ACPI.h"
 #include "RSDP.h"
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <string.h>
 
 // TODO: Make the SearchForRSDP function better

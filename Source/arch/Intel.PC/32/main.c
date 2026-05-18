@@ -1,5 +1,5 @@
 #include <Device/VGA/ColorTextMode.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include "main.h"
 #include <KernelMain.h>
 #include <Device/CPU/GDT.h>

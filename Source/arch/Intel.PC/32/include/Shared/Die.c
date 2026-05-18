@@ -1,5 +1,5 @@
 #include <Die.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <Device/CPU/Interrupt.h>
 #include <stdbool.h>
 #include <AAL.h>

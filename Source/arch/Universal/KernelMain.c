@@ -1,7 +1,7 @@
 #include <VFS.h>
 #include <AAL.h>
 #include <PCI.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <Die.h>
 #include <PAL.h>
 
@@ -21,7 +21,7 @@ void KernelMain()
 			PALDevice->Command(DevCMDSwitchToFallback, DeviceTypeDisplay, PALDevice);
 		}
 	}
-	
+
 	DALDevice* FirstStorageCtrl = DALFindFirst(DeviceType(DeviceTypeDiskController), DALDevices, true);
 
 	if (FirstStorageCtrl == 0)

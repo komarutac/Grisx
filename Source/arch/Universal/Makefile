@@ -6,4 +6,5 @@ $(Universal)/VFS.o \
 $(Universal)/StringConvert.o \
 $(Universal)/KernelMain.o \
 $(Universal)/PPI.o \
-$(Universal)/PCI.o
+$(Universal)/PCI.o \
+$(Universal)/Console.o

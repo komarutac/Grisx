@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <Device/CPU/Interrupt.h>
 #include <Device/IO.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <DAL.h>
 #include <Device/CPU/ISRS.h>
 #include "Keyboard.h"

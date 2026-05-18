@@ -1,6 +1,6 @@
 #include <DAL.h>
 #include <stddef.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <VFS.h>
 #include <Die.h>
 #include <string.h>

@@ -4,7 +4,7 @@
 #include "Interrupt.h"
 #include <stdbool.h>
 #include <Die.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <PPI.h>
 
 bool ISRFaultDie = true;

@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "ISRS.h"
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <PPI.h>
 IDTEntry IDT[256];
 IDTPointer IDTP;

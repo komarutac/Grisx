@@ -1,5 +1,5 @@
 #include <Die.h>
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 #include <Make.h>
 #include <PPI.h>
 #include <stdint.h>

@@ -58,6 +58,5 @@ $(ARCHDIR)/include/Device/VGA/ColorTextMode.o \
 $(ARCHDIR)/include/Device/Terminal/Keyboard.o \
 $(ARCHDIR)/include/Device/PCI/PCI.o \
 $(ARCHDIR)/include/Device/ACPI/ACPI.o \
-$(ARCHDIR)/include/Device/Terminal/Console.o \
 $(ARCHDIR)/include/Shared/Die.o \
 $(ARCHDIR)/main.o 

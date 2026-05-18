@@ -2,7 +2,7 @@
 #include <Device/IO.h>
 #include "Parallel.h"
 #include "Serial.h"
-#include <Device/Terminal/Console.h>
+#include <Console.h>
 
 uint16_t* ParallelAddress = (uint16_t*)0x408;
 uint8_t ParallelRegister = 0;
