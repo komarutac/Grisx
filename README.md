@@ -15,7 +15,7 @@
 # Build
 The compiled binary will be placed in the root of the Source folder (Source/Platform-Bits_Edition.elf).
 ```sh
-make PLATFORM=Platform EDITION=Edition AS=Assembler CC=CCompiler BITS=Bits LOADER=Loader all
+gmake PROFILE=Profile AS=Assembler CC=CCompiler all
 ```
 # Credits
 Parts of the directory structure and files are from https://gitlab.com/sortie/meaty-skeleton
