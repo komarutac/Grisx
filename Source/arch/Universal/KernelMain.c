@@ -1,32 +1,33 @@
 #include <VFS.h>
 #include <AAL.h>
-#include <Device/PCI/PCI.h>
+#include <PCI.h>
 #include <Device/Terminal/Console.h>
 #include <Die.h>
-
-void NoStorageDevice()
-{
-	Alert("no storage device found", "kernel");
-}
-
-void IntializationFailure()
-{
-	Alert("could not complete intialization", "kernel");
-}
+#include <PAL.h>
 
 void KernelMain()
 {
 	VFSSetLoop(VirtualLoop);
 	VFSInit(MessageCallback);
 	RegisterDALDevice(ArchDevice, MessageCallback);
+	RegisterDALDevice(PALDevice, MessageCallback);
 	RegisterDALDevice(PCIDevice, MessageCallback);
-	if (DALFindFirst((DALProperties) {
-		.Type = DeviceTypeDiskController
-	}, DALDevices, true) == 0)
+
+	if (DALFindFirst(DeviceType(DeviceTypeVideo), DALDevices, true) == 0)
 	{
-		NoStorageDevice();
-		IntializationFailure();
-		return;
+		bool HasFallbackFunction = (bool)PALDevice->Command(DevCMDHasFunction, DevCMDSwitchToFallback, PALDevice);
+		if (HasFallbackFunction)
+		{
+			PALDevice->Command(DevCMDSwitchToFallback, DeviceTypeDisplay, PALDevice);
+		}
 	}
-	IntializationFailure();
+	
+	DALDevice* FirstStorageCtrl = DALFindFirst(DeviceType(DeviceTypeDiskController), DALDevices, true);
+
+	if (FirstStorageCtrl == 0)
+	{
+		printf("No device with type DiskController found. Can not complete initialization.\r\n");
+		Stop("Device Not Found", 0x1000100);
+		for (;;);
+	}
 }

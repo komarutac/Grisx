@@ -4,4 +4,6 @@ $(Universal)/Die.o \
 $(Universal)/DAL.o \
 $(Universal)/VFS.o \
 $(Universal)/StringConvert.o \
-$(Universal)/KernelMain.o
+$(Universal)/KernelMain.o \
+$(Universal)/PPI.o \
+$(Universal)/PCI.o

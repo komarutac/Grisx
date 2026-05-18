@@ -1,0 +1,4 @@
+PLATFORM=Intel.PC
+LOADER=multiboot
+EDITION=base
+BITS=32

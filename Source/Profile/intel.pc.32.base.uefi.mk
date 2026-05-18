@@ -1,0 +1,4 @@
+PLATFORM=Intel.PC
+LOADER=uefi
+EDITION=base
+BITS=32

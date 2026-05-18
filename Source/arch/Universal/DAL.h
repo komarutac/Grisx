@@ -1,5 +1,6 @@
 #pragma once
 #include <stdbool.h>
+#define DeviceType(A) (DALProperties){.Type=A}
 #define DeviceBusCPU 0x01
 #define DeviceBusISA 0x02
 #define DeviceBusPCI 0x03
@@ -23,11 +24,24 @@
 #define DeviceTypeTimer 0x0D
 #define DeviceTypeACPI 0x0E
 #define DeviceTypePowerManagement 0x0F
+#define DeviceTypeArch 0x10
+#define DeviceTypePlatform 0x11
+#define DeviceTypeMultimediaController 0x12
+#define DeviceTypeNetworkController 0x13
+#define DeviceTypeVideoController 0x14
+#define DeviceTypeMemoryController 0x15
+#define DeviceTypeBridge 0x16
+#define DeviceTypeCryptoController 0x17
+#define DeviceTypeCommController 0x18
+#define DeviceTypeInputController 0x19
+#define DeviceTypeSerialBusController 0x1A
+#define DeviceTypeWirelessController 0x1B
 
+#define DeviceStatusNotAvailable 0x00
 #define DeviceStatusUninit 0x01
-#define DeviceStatusNotAvailable 0x02
-#define DeviceStatusError 0x03
+#define DeviceStatusError 0x02
 #define DeviceStatusOK 0x04
+#define DeviceStatusBusy 0x08
 
 #define DeviceVideoBPP4 0x04
 #define DeviceVideoBPP8 0x08
@@ -52,6 +66,10 @@
 #define DevCMDAudioPlayStop 0x0A
 #define DevCMDAudioSetVolume 0x0B
 #define DevCMDPowerShutdown 0x0C
+#define DevCMDHasFunction 0x0D
+#define DevCMDPowerRestart 0x0E
+#define DevCMDGetDeviceInformation 0x0F
+#define DevCMDSwitchToFallback 0x10
 
 #define MsgDevReady 0x01
 #define MsgDevError 0x02
@@ -70,6 +88,10 @@ struct _DALProperties {
     int SubClass;
     int Type;
     int Status;
+    int HeaderType;
+    int ProgIF;
+    int DeviceID;
+    bool Virtual;
 }; typedef struct _DALProperties DALProperties;
 
 struct _DALDevice {
@@ -99,5 +121,4 @@ extern void* PlaceholderCommand(int Function, void* Arguments, DALDevice* Device
 extern int MessageCallback(int Message, DALDevice* Device);
 extern void UninitializeDevices(DALDevice* Devices[]);
 extern DALDevice* DALFindFirst(DALProperties Properties, DALDevice** List, bool TypeOnly);
-extern bool DALPropertiesCompareType(DALProperties A, DALProperties B);
 extern bool DALPropertiesCompare(DALProperties A, DALProperties B);

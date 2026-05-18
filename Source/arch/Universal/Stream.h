@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include <stddef.h>
 struct _Stream {
     int Position;
     void* Context;

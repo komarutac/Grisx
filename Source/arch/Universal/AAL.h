@@ -1,3 +1,4 @@
+#pragma once
 #include <DAL.h>
 #define AALDisableInterrupts 0x00
 #define AALEnableInterrupts 0x01

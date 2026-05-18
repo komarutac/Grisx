@@ -17,6 +17,7 @@ int MessageCallback(int Message, DALDevice* Device)
 			printf("Testing %s\r\n", Device->Name);
 			Device->Test(Device);
 		}
+		printf("Initialized %s\r\n", Device->Name);
 	}
 	
 	if (Message == MsgDevUnloaded)
@@ -72,36 +73,20 @@ bool DALPropertiesCompare(DALProperties A, DALProperties B)
 	return false;
 }
 
-bool DALPropertiesCompareType(DALProperties A, DALProperties B)
+DALDevice* DALFindFirst(DALProperties Properties, DALDevice** List, bool TypeOnly)
 {
-	if (A.Type == B.Type)
-	{
-		return true;
-	}
-	return false;
-}
-
-DALDevice* DALFindFirst(DALProperties Properties, DALDevice** List, bool TypeOnly) {
 	int i = 1;
 	for (;;) {
-		if (List[i] == NULL) {
+		if (List[i] == NULL)
+		{
 			break;
 		}
 		
 		DALDevice* Device = List[i];
-		if (!TypeOnly)
+		if (Device->Properties->Type == Properties.Type)
 		{
-			if (DALPropertiesCompare(*Device->Properties, Properties))
-			{
-				return Device;
-			}
-		}
-		else
-		{
-			if (DALPropertiesCompareType(*Device->Properties, Properties))
-			{
-				return Device;
-			}
+			printf("OREO\r\n");
+			return Device;
 		}
 		
 		if (Device->ChildrenCount > 0)
@@ -124,15 +109,15 @@ void RegisterDALDevice(DALDevice* Device, void* MessageHandler)
 			Oops("invalid device name", "device");
 			return;
 		}
-		VFSEntry* DeviceFile = &(VFSEntry) {};
+		/* VFSEntry* DeviceFile = &(VFSEntry) {};
 		DeviceFile->Name = Device->Name;
 		if (VirtualDev->Next != 0) {
 			DeviceFile->Next = VirtualDev->Next;
 			VirtualDev->Next->Previous = DeviceFile;
 		}
 		DeviceFile->Previous = VirtualDev;
-		VirtualDev->Next = DeviceFile;
-		ConFormatTo(DefaultConsole, "Registering %s\r\n", Device->Name);
+		VirtualDev->Next = DeviceFile; */
+		ConFormatTo(DefaultConsole, "Registering %s, Class 0x%X/0x%X, ID 0x%X/0x%X as a parent\r\n", Device->Name, Device->Properties->Class, Device->Properties->SubClass, Device->Properties->DeviceID, Device->Properties->Vendor);
 		DALDevices[DALDevicesIndex] = Device;
 		DALDevices[DALDevicesIndex]->SendKrnMessage = MessageHandler;
 		if (DALDevices[DALDevicesIndex]->Initialize) {
@@ -146,15 +131,15 @@ void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHa
 			Oops("invalid device name", "device");
 			return;
 		}
-		VFSEntry* DeviceFile = &(VFSEntry) {};
+		/* VFSEntry* DeviceFile = &(VFSEntry) {};
 		DeviceFile->Name = Child->Name;
 		if (VirtualDev->Next != 0) {
 			DeviceFile->Next = VirtualDev->Next;
 			VirtualDev->Next->Previous = DeviceFile;
 		}
 		DeviceFile->Previous = VirtualDev;
-		VirtualDev->Next = DeviceFile;
-		ConFormatTo(DefaultConsole, "Registering %s\r\n", DeviceFile->Name);
+		VirtualDev->Next = DeviceFile; */
+		ConFormatTo(DefaultConsole, "Registering %s, Class 0x%X/0x%X, ID 0x%X/0x%X as a child\r\n", Child->Name, Child->Properties->Class, Child->Properties->SubClass, Child->Properties->DeviceID, Child->Properties->Vendor);
 		Parent->Children[Parent->ChildrenCount] = Child;
 		Parent->Children[Parent->ChildrenCount]->SendKrnMessage = MessageHandler;
 		if (Parent->Children[Parent->ChildrenCount]->Initialize) {

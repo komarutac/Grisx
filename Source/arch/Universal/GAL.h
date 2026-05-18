@@ -1,6 +1,5 @@
- #pragma once
+#pragma once
 #include <DAL.h>
-
 struct _GALRes {
 	int Width;
 	int Height;

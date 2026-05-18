@@ -1,0 +1,49 @@
+#include <PAL.h>
+#include <DAL.h>
+#include <stdint.h>
+#include <Device/CPU/PIC.h>
+#include <Device/CPU/PIT.h>
+#include <Device/Terminal/Keyboard.h>
+#include <AAL.h>
+#include <stddef.h>
+#include <Device/CPU/ISRS.h>
+
+void PlatformInit(DALDevice* Device)
+{
+	ISRSInstall();
+	RegisterDALDeviceChild(Device, PICDevice, MessageCallback);
+	RegisterDALDeviceChild(Device, KeyboardDevice, MessageCallback);
+	RegisterDALDeviceChild(Device, PITDevice, MessageCallback);
+	Device->Command(AALEnableInterrupts, NULL, Device);
+	Device->SendKrnMessage(MsgDevReady, Device);
+}
+
+void* PlatformCommand(int Function, void* Arguments, DALDevice* Device)
+{
+	(void)Device;
+	switch (Function)
+	{
+	case DevCMDHasFunction:
+		uint8_t Argument = (uint8_t)Arguments;
+		switch (Argument)
+		{
+			default:
+				return false;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+DALDevice* PALDevice = &(DALDevice)
+{
+	.Name = "platform",
+	.Properties = &(DALProperties) {
+		.Bus = 0,
+		.Type = DeviceTypePlatform,
+	},
+	.Uninitialize = 0,
+	.Initialize = PlatformInit,
+	.Command = PlatformCommand
+};
