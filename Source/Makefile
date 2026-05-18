@@ -2,8 +2,8 @@ PROFILE?=default
 include Profile/$(PROFILE).mk
 OUTPUTFORMAT?=
 OUTPUT?=$(PLATFORM).$(BITS).$(EDITION).$(OUTPUTFORMAT)
-NAME?=GRISX
-VERSION?=
+NAME?=
+VERSION?=$(shell date "+%y.%m")
 HOST?=
 PLATFORM?=
 BITS?=
@@ -20,7 +20,6 @@ INC?=
 REQINC?=
 Universal=arch/Universal
 ARCHDIR=arch/$(PLATFORM)/$(BITS)
-VERSION:=$(shell date "+%y.%m")
 CFLAGS:=$(CFLAGS) -gdwarf-4 -D__MK_BITS=$(BITS) -D__MK_PLATFORM=$(PLATFORM) -D__MK_LOADER=$(LOADER) -D__MK_EDITION=$(EDITION) -D__MK_VERSION=$(VERSION) -D__MK_NAME=$(NAME) -ffreestanding -Wall -Wextra -nostdlib
 CPPFLAGS:=$(CPPFLAGS)
 LDFLAGS:=
