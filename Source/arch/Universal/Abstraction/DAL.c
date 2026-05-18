@@ -1,7 +1,7 @@
-#include <DAL.h>
+#include <Abstraction/DAL.h>
 #include <stddef.h>
-#include <Console.h>
-#include <VFS.h>
+#include <Abstraction/Console.h>
+#include <Abstraction/VFS.h>
 #include <Die.h>
 #include <string.h>
 

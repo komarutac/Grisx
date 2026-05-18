@@ -1,10 +1,10 @@
-#include <PAL.h>
-#include <DAL.h>
+#include <Abstraction/PAL.h>
+#include <Abstraction/DAL.h>
 #include <stdint.h>
 #include <Device/CPU/PIC.h>
 #include <Device/CPU/PIT.h>
 #include <Device/Terminal/Keyboard.h>
-#include <AAL.h>
+#include <Abstraction/AAL.h>
 #include <stddef.h>
 #include <Device/CPU/ISRS.h>
 

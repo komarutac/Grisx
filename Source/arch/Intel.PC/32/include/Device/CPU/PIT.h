@@ -1,9 +1,9 @@
 #ifndef C_DEVICE_CPU_PIT_HEADER
 #define C_DEVICE_CPU_PIT_HEADER
 #include <Device/IO.h>
-#include <Console.h>
+#include <Abstraction/Console.h>
 #include <Device/CPU/Interrupt.h>
-#include <DAL.h>
+#include <Abstraction/DAL.h>
 #define PITCommand 0x43
 #define PITChannel1 0x40
 #define PITChannel2 0x41

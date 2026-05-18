@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <Device/CPU/Interrupt.h>
 #include <Device/IO.h>
-#include <Console.h>
-#include <DAL.h>
+#include <Abstraction/Console.h>
+#include <Abstraction/DAL.h>
 #include <Device/CPU/ISRS.h>
 #include "Keyboard.h"
 #include <stddef.h>

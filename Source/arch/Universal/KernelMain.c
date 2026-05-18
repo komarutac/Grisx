@@ -1,9 +1,9 @@
-#include <VFS.h>
-#include <AAL.h>
+#include <Abstraction/VFS.h>
+#include <Abstraction/AAL.h>
 #include <PCI.h>
-#include <Console.h>
+#include <Abstraction/Console.h>
 #include <Die.h>
-#include <PAL.h>
+#include <Abstraction/PAL.h>
 
 void KernelMain()
 {

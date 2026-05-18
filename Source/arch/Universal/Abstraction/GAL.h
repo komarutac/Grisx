@@ -1,5 +1,5 @@
 #pragma once
-#include <DAL.h>
+#include <Abstraction/DAL.h>
 struct _GALRes {
 	int Width;
 	int Height;

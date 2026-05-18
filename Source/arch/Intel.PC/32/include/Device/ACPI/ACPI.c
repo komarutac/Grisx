@@ -1,9 +1,9 @@
 #include <stdint.h>
 #include <stddef.h>
-#include <DAL.h>
+#include <Abstraction/DAL.h>
 #include "ACPI.h"
 #include "RSDP.h"
-#include <Console.h>
+#include <Abstraction/Console.h>
 #include <string.h>
 
 // TODO: Make the SearchForRSDP function better

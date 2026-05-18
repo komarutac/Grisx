@@ -1,7 +1,7 @@
 #include "Serial.h"
 #include <stdint.h>
 #include <Device/IO.h>
-#include "Console.h"
+#include "Abstraction/Console.h"
 
 uint16_t* SerialAddress = (uint16_t*)0x400;
 int SerialRegister = 0;

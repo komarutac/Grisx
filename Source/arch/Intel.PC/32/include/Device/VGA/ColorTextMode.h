@@ -3,7 +3,7 @@
 #define VCRTValue 0x3D5
 #define VGATextColor(Background, Foreground) (Foreground | Background << 4)
 #include <Device/IO.h>
-#include <Console.h>
+#include <Abstraction/Console.h>
 #include <stdint.h>
 #define VCPage (VCResWidth * VCResHeight)
 #define VGA_SEQ_INDEX_PORT 0x3C4

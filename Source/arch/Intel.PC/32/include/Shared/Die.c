@@ -1,8 +1,8 @@
 #include <Die.h>
-#include <Console.h>
+#include <Abstraction/Console.h>
 #include <Device/CPU/Interrupt.h>
 #include <stdbool.h>
-#include <AAL.h>
+#include <Abstraction/AAL.h>
 #include <stddef.h>
 #include <PPI.h>
 #include <Make.h>
