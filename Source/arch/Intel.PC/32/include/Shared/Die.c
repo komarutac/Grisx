@@ -5,8 +5,8 @@
 #include <Abstraction/AAL.h>
 #include <stddef.h>
 #include <PPI.h>
-#include <Make.h>
-#include <Linker.h>
+#include <Build/Make.h>
+#include <Build/Linker.h>
 
 void DieFault(char* Message, Registers* Regs, bool Die)
 {
