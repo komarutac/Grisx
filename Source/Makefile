@@ -1,6 +1,8 @@
 PROFILE?=default
 include Profile/$(PROFILE).mk
-NAME?=
+OUTPUTFORMAT?=
+OUTPUT?=$(PLATFORM).$(BITS).$(EDITION).$(OUTPUTFORMAT)
+NAME?=GRISX
 VERSION?=
 HOST?=
 PLATFORM?=
@@ -9,6 +11,7 @@ LOADER?=
 EDITION?=
 CC?=
 AS?=
+ASFLAGS?=
 CFLAGS?=-O2 -g
 CPPFLAGS?=
 LDFLAGS?=
@@ -17,7 +20,6 @@ INC?=
 REQINC?=
 Universal=arch/Universal
 ARCHDIR=arch/$(PLATFORM)/$(BITS)
-NAME:=GRISX
 VERSION:=$(shell date "+%y.%m")
 CFLAGS:=$(CFLAGS) -gdwarf-4 -D__MK_BITS=$(BITS) -D__MK_PLATFORM=$(PLATFORM) -D__MK_LOADER=$(LOADER) -D__MK_EDITION=$(EDITION) -D__MK_VERSION=$(VERSION) -D__MK_NAME=$(NAME) -ffreestanding -Wall -Wextra -nostdlib
 CPPFLAGS:=$(CPPFLAGS)
@@ -50,16 +52,16 @@ $(LIBS)
 
 all: Base.kernel
 Base.kernel: $(OBJS) $(ARCHDIR)/$(LOADER)/linker.ld
-	$(CC) -T $(ARCHDIR)/$(LOADER)/linker.ld -o $(PLATFORM)-$(BITS)_$(EDITION).elf $(CFLAGS) $(LINK_LIST)
+	$(CC) -T $(ARCHDIR)/$(LOADER)/linker.ld -o $(OUTPUT) $(CFLAGS) $(LINK_LIST)
 .c.o:
 	$(CC) -MD -c $< -o $@ -std=c11 $(CFLAGS) $(CPPFLAGS)
 .S.o:
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 .asm.o:
-	$(AS) -f elf$(BITS) $< -o $@
+	$(AS) $(ASFLAGS) $< -o $@
 clean:
-	rm -f $(PLATFORM)-$(BITS)_$(EDITION).elf
-	rm -f $(OBJS) *.o */*.o */*/*.o
-	rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d
+	rm -f $(OUTPUT)
+	rm -f $(OBJS)
+	rm -f $(OBJS:.o=.d)
 
 -include $(OBJS:.o=.d)
