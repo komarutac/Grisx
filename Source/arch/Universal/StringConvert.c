@@ -1,5 +1,6 @@
 #include "StringConvert.h"
 #include <stdint.h>
+#include <stddef.h>
 #include <string.h>
 
 char SBase20[] = {
@@ -18,8 +19,8 @@ char SBase2[] = {
 	'0', '1'
 };
 
-unsigned long SBaseGetSafeSize(unsigned long Integer, int Division) {
-	unsigned long SafeSize = 0;
+size_t GetSizeForBase(int Integer, int Division) {
+	size_t SafeSize = 0;
 	while (Integer > 0) {
 		SafeSize++;
 		Integer /= Division;
@@ -36,13 +37,16 @@ void strrev(int i, char* Destination) {
 	Destination[i] = '\0';
 }
 
-void SBaseToString(unsigned long Integer, char* Destination, char* Array, int Division) {
+void IntegerToASCII(unsigned long Integer, char* Destination, char* Array, int Division) {
 	unsigned long i = 0;
-	if (Integer == 0) {
-		Destination[i++] = Array[Integer];
+
+	if (Integer == 0)
+	{
+		Destination[i++] = Array[Integer]; 
 	}
-	
-	while (Integer > 0) {
+
+	while (Integer > 0)
+	{
 		Destination[i++] = Array[Integer % Division];
 		Integer /= Division;
 	}

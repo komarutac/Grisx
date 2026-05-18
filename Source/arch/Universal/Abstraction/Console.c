@@ -58,9 +58,10 @@ int ConFormatTo(ConsoleStruct* Console, char* restrict Format, ...)
             Format++;
             int Number = va_arg(Parameters, int);
 
-            char NumberString[SBaseGetSafeSize(Number, 10)];
+            size_t BaseLength = GetSizeForBase(Number, 10);
+            char NumberString[BaseLength];
 
-            SBaseToString(Number, NumberString, SBase10, 10);
+            IntegerToASCII(Number, NumberString, SBase10, 10);
             Console->WriteString(NumberString);
             Written += strlen(NumberString);
         }
@@ -69,8 +70,9 @@ int ConFormatTo(ConsoleStruct* Console, char* restrict Format, ...)
             Format++;
             const int Number = va_arg(Parameters, int);
 
-            char NumberString[SBaseGetSafeSize(Number, 16)];
-            SBaseToString(Number, NumberString, SBase16, 16);
+            size_t BaseLength = GetSizeForBase(Number, 16) + 1;
+            char NumberString[BaseLength];
+            IntegerToASCII(Number, NumberString, SBase16, 16);
 
             Console->WriteString(NumberString);
             Written += strlen(NumberString);
