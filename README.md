@@ -2,11 +2,15 @@
 1. IntelPC, 32
 # Supported Loaders
 1. Multiboot (IntelPC, 32)
+# Tools Not Tested
+Not tested with masm, gas, or fasm as the assembler.
+
+Not tested with pcc, clang, or msvc as the compiler.
 # Platform IntelPC, 32
 ## Build Requirements
-1. make
-2. i686-elf-gcc
-3. nasm
+1. gmake (bsdmake not support yet)
+2. i386-elf-gcc or i686-elf-gcc
+3. nasm or yasm
 ## Minimum System Requirements
 1. CPU: 486
 2. Memory: 2 MB
