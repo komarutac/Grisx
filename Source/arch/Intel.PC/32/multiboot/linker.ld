@@ -5,23 +5,26 @@ SECTIONS
 	StartProgram = .;
 	.text BLOCK(4K) : ALIGN(4K)
 	{
-		Text = .;
+		StartText = .;
 		*(.Multiboot)
 		*(.text)
 		*(.rodata)
+		EndText = .;
 	}
 
 	.data BLOCK(4K) : ALIGN(4K)
 	{
-	    Data = .;
+	    StartData = .;
 		*(.data)
+		EndData = .;
 	}
 
 	.bss BLOCK(4K) : ALIGN(4K)
 	{
-	    BSS = .;
+	    StartBSS = .;
 		*(COMMON)
 		*(.bss)
+		EndBSS = .;
 	}
 	EndProgram = .;
 }
