@@ -23,6 +23,5 @@ void DieFault(char* Message, Registers* Regs, bool Die)
 	}
 	printf("Register Struct: 0x%X\r\n", Regs);
 	Stop(Message, 0x2000400);
-	ArchDevice->Command(AALDisableInterrupts, NULL, ArchDevice);
-	ArchDevice->Command(AALHalt, NULL, ArchDevice);
+	for (;;);
 }
