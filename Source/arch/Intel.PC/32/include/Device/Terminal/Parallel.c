@@ -14,9 +14,7 @@ void ParallelWrite(uint8_t Data)
 
 uint8_t ParallelRead()
 {
-	uint8_t Value;
-	inb(*ParallelAddress + ParallelRegister, Value);
-	return Value;
+	return inb(*ParallelAddress + ParallelRegister);
 }
 
 void SetParallelRegister(uint8_t Register)
@@ -26,21 +24,20 @@ void SetParallelRegister(uint8_t Register)
 void ParallelWriteByte(uint8_t Data)
 {
 	unsigned char lControl;
-	uint8_t Value;
-	inb(*ParallelAddress + 1, Value);
+	uint8_t Value = inb(*ParallelAddress + 1);
 	while (!(Value & 0x80))
 	{
-		inb(*ParallelAddress + 1, Value);
+		Value = inb(*ParallelAddress + 1);
 	}
 
 	outb(*ParallelAddress, Data);
-	inb(*ParallelAddress + 2, lControl);
+	lControl = inb(*ParallelAddress + 2);
 	outb(*ParallelAddress + 2, lControl | 1);
 	outb(*ParallelAddress + 2, lControl);
-	inb(*ParallelAddress + 1, Value);
+	Value = inb(*ParallelAddress + 1);
 	while (!(Value & 0x80))
 	{
-		inb(*ParallelAddress + 1, Value);
+		Value = inb(*ParallelAddress + 1);
 	}
 }
 void ParallelWriteString(char* Data) 

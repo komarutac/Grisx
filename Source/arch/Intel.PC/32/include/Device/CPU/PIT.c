@@ -39,8 +39,7 @@ void SetBeepHz(int HZ) {
 
 void PlayPCBeep() {
     PPITrace(__FUNCTION__);
-    uint8_t Temp;
-	inb(0x61, Temp);
+    uint8_t Temp = inb(0x61);
 
     if (Temp != (Temp | 3)) {
         outb(0x61, Temp | 3);
@@ -49,8 +48,7 @@ void PlayPCBeep() {
 
 void StopPCBeep() {
     PPITrace(__FUNCTION__);
-    uint8_t Temp;
-	inb(0x61, Temp);
+    uint8_t Temp = inb(0x61);
     outb(0x61, Temp & 0xFC);
 }
 

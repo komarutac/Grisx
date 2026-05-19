@@ -66,7 +66,7 @@ void SetIRQMask(uint8_t IRQLine) {
 		IRQLine -= 8;
 	}
 
-	inb(Port, Temp);
+	Temp = inb(Port);
 	outb(Port, Temp | (1 << IRQLine));
 }
 
@@ -83,7 +83,7 @@ void ClearIRQMask(uint8_t IRQLine) {
 		IRQLine -= 8;
 	}
 
-	inb(Port, Temp);
+	Temp = inb(Port);
 	Value = Temp & ~(1 << IRQLine);
 	outb(Port, Value);
 }
@@ -94,8 +94,8 @@ uint16_t GetIRQRegisterPIC(int OCW3) {
 	uint8_t Temp2;
 	outb(PICMaster, OCW3);
 	outb(PICSlave, OCW3);
-	inb(PICSlave + 1, Temp);
-	inb(PICMaster + 1, Temp2);
+	Temp = inb(PICSlave + 1);
+	Temp2 = inb(PICMaster + 1);
 	return (Temp << 8) |  Temp2;
 }
 

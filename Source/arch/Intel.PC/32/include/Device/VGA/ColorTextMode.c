@@ -27,7 +27,7 @@ void VCWriteRegister(uint16_t Port, uint8_t Register, uint8_t Value) {
 uint8_t VCReadRegister(uint16_t Port, uint8_t Register) {
 	uint8_t Temp;
 	outb(Port, Register);
-	inb(Port + 1, Temp);
+	Temp = inb(Port + 1);
 	return Temp;
 }
 
@@ -51,23 +51,23 @@ void VCSetFont(uint8_t *Buffer, uint16_t FontHeight)
 	uint8_t* Pointer = (uint8_t*) 0xB8000;
 
 	outb(0x3C4, 2);
-	inb(0x3C5, seq2);
+	seq2 = inb(0x3C5);
 
 	outb(0x3C4, 4);
-	inb(0x3C5, seq4);
+	seq4 = inb(0x3C5);
 
 	outb(0x3C5, 0x04);
 
 	outb(0x3CE, 4);
-	inb(0x3CF, gc4);
+	gc4 = inb(0x3CF);
 
 	outb(0x3CE, 5);
-	inb(0x3CF, gc5);
+	gc5 = inb(0x3CF);
 
 	outb(0x3CF, gc5 & ~0x10);
 
 	outb(0x3CE, 6);
-	inb(0x3CF, gc6);
+	gc6 = inb(0x3CF);
 
 	outb(0x3CF, gc6 & ~0x02);
 

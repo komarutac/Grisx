@@ -14,9 +14,7 @@ uint8_t SerialWrite(uint8_t Data)
 
 uint8_t SerialRead()
 {
-	uint8_t Value;
-	inb(*SerialAddress + SerialRegister, Value);
-	return Value;
+	return inb(*SerialAddress + SerialRegister);
 }
 
 void SerialWriteByte(uint8_t Data)

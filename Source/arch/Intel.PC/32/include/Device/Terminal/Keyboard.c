@@ -52,8 +52,7 @@ void ClearKeyboardBuffer() {
 void KeyboardHandler(Registers* Regs)
 {
 	(void)Regs;
-	uint8_t ScanCode;
-	inb(0x60, ScanCode);
+	uint8_t ScanCode = inb(0x60);
 	if (!(ScanCode & 0x80))
 	{
 		KeyboardBuffer[KeyboardBufferIndex++] = CurrentLayout[ScanCode];
