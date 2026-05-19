@@ -2,7 +2,7 @@ PROFILE?=default
 include Profile/$(PROFILE).mk
 OUTPUTFORMAT?=
 OUTPUT?=$(PLATFORM).$(BITS).$(EDITION).$(OUTPUTFORMAT)
-NAME?=
+NAME?=GRISX
 VERSION?=$(shell date "+%y.%m")
 HOST?=
 PLATFORM?=
