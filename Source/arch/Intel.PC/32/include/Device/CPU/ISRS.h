@@ -43,8 +43,6 @@ extern void MouseInterrupt();
 extern void UnitInterrupt();
 extern void PrimaryATAInterrupt();
 extern void SecondaryATAInterrupt();
-extern void SystemCall();
-extern void TestSyscall();
 
 extern void* IRQRoutines[255];
 void RegisterIRQHandler(int IRQ, void (*Handler)(Registers* Regs));
