@@ -9,9 +9,9 @@ struct _CommonTransferHeader
 	size_t HeaderSize;
 }; typedef struct _CommonTransferHeader CommonTransferHeader;
 
-struct _CommonMessageHandler
+struct _CommonMessageHeader
 {
 	int RequestNumber;
 	size_t HeaderSize;
 	size_t DataSize;
-}; typedef struct _CommonMessageHandler CommonMessageHandler;
+}; typedef struct _CommonMessageHeader CommonMessageHeader;
