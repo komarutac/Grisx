@@ -39,5 +39,5 @@ void IDTInstall() {
     IDTSetGate(19, (unsigned)SIMDFloatingPointException, 0x08, 0x8E);
     IDTSetGate(20, (unsigned)VirtualizationException, 0x08, 0x8E);
     IDTSetGate(21, (unsigned)ControlProtectionFault, 0x08, 0x8E);
-    IDTLoad();
+    lidt(IDTP);
 }

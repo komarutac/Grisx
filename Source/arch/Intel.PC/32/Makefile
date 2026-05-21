@@ -8,7 +8,6 @@ $(ARCHDIR)/include/Device/Terminal/Serial.o \
 $(ARCHDIR)/include/Device/Terminal/Parallel.o \
 $(ARCHDIR)/include/Device/CPU/GDT.o \
 $(ARCHDIR)/include/Device/CPU/GDTFlush.o \
-$(ARCHDIR)/include/Device/CPU/IDTLoad.o \
 $(ARCHDIR)/include/Device/CPU/ISRSHandler.o \
 $(ARCHDIR)/include/Device/CPU/IRQs/ProgrammableInterruptTimer.o \
 $(ARCHDIR)/include/Device/CPU/IRQs/Keyboard.o \

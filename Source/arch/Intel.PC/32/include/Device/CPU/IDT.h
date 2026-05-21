@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#define lidt(A) __asm ("lidt " #A)
 // http://www.osdever.net/bkerndev/Docs/idt.htm
 
 struct _IDTEntry {
