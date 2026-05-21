@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v
+    - uses: actions/checkout@v4
     
     - name: All
       run: cd Source && make PROFILE=intel.pc.32.base.multiboot CC=i686-elf-gcc AS=nasm all
