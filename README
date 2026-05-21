@@ -10,7 +10,7 @@ Not tested with pcc, clang, or msvc as the compiler.
 
 Platform IntelPC, 32
     Build Requirements
-    1. gmake (bsdmake not support yet)
+    1. gnumake (bsdmake not support yet)
     2. i386-elf-gcc or i686-elf-gcc
     3. nasm or yasm
 
