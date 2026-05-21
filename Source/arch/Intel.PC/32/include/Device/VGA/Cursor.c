@@ -13,10 +13,10 @@ uint16_t VGetCursorPosition()
     uint8_t Temp;
     uint16_t Position = 0;
     outb(VCRTCommand, 0x0F);
-    inb(VCRTValue, Temp);
+    Temp = inb(VCRTValue);
     Position |= Temp;
     outb(VCRTCommand, 0x0E);
-    inb(VCRTValue, Temp);
+    Temp = inb(VCRTValue);
     Position |= Temp << 8;
     return Position;
 }
@@ -25,10 +25,10 @@ void VEnableCursor(const uint8_t Start, const uint8_t End)
 {
     uint8_t Temp;
     outb(VCRTCommand, 0x0A);
-    inb(0x3D5, Temp);
+    Temp = inb(0x3D5);
     outb(VCRTValue, (Temp & 0xC0) | Start);
     outb(VCRTCommand, 0x0B);
-    inb(0x3D5, Temp);
+    Temp = inb(0x3D5);
     outb(VCRTValue, (Temp & 0xE0) | End);
 }
 
