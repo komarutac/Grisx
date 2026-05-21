@@ -1,6 +1,8 @@
 #pragma once
 #include <Abstraction/DAL.h>
 #include <stdint.h>
+#include <macro.h>
+
 #define PCIInterruptAck 		0b0000
 #define PCISpecialCycle 		0b0001
 #define PCIIORead 				0b0010
@@ -14,12 +16,12 @@
 #define PCIMemReadLine 			0b1110
 #define PCIMemWriteAndInvalid 	0b1111
 
-extern DALDevice* CheckPCIBus(uint8_t Bus, DALDevice* BusDevice);
-extern DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice);
-extern uint16_t PCIReadConfig(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
-extern uint8_t PCIReadByte(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
-extern void PCIUninit();
-extern void PCIInit();
-extern void* PCICommand(int Function, void* Arguments, DALDevice*);
+extern independent DALDevice* CheckPCIBus(uint8_t Bus, DALDevice* BusDevice);
+extern independent DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice);
+extern dependent uint16_t PCIReadConfig(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
+extern dependent uint8_t PCIReadByte(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
+extern independent void PCIUninit();
+extern independent void PCIInit();
+extern independent void* PCICommand(int Function, void* Arguments, DALDevice*);
+extern independent bool PCITest(DALDevice* Device);
 extern DALDevice* PCIDevice;
-extern bool PCITest(DALDevice* Device);
