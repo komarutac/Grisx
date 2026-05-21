@@ -23,3 +23,4 @@ gmake PROFILE=Profile AS=Assembler CC=CCompiler all
 ```
 # Credits
 Parts of the directory structure and files are from https://gitlab.com/sortie/meaty-skeleton
+Parts of some files are by user0-07161 from a previous project
