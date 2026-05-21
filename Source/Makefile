@@ -1,5 +1,13 @@
 PROFILE?=default
+AUTOCONFIG?=false
+ifeq ($(AUTOCONFIG), false)
 include Profile/$(PROFILE).mk
+endif
+HOSTOS?=$(shell uname -s)
+HOSTARCH?=$(shell uname -m)
+ifeq ($(AUTOCONFIG), true)
+include Autoconfig.mk
+endif
 OUTPUTFORMAT?=
 OUTPUT?=$(PLATFORM).$(BITS).$(EDITION).$(OUTPUTFORMAT)
 NAME?=GRISX
