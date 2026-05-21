@@ -1,0 +1,1 @@
+KERNEL_ARCH_OBJS+=$(patsubst %.asm,%.o,$(wildcard $(ARCHDIR)/include/Device/CPU/IRQs/*.asm))

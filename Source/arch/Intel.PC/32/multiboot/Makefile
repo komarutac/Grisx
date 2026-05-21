@@ -1,0 +1,1 @@
+KERNEL_ARCH_OBJS+=$(patsubst %.S,%.o,$(wildcard $(ARCHDIR)/$(LOADER)/*.S))
