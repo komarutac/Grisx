@@ -21,7 +21,7 @@ Platform IntelPC, 32
     4. Machine: PCI
 
 Build
-The compiled binary will be placed in the root of the Source folder (Source/Platform-Bits_Edition.elf).
+The compiled binary will be placed in the root of the Source folder (Source/Platform.Bits.Edition.Loader.elf).
 gmake PROFILE=Profile AS=Assembler CC=CCompiler all
 
 Credits
