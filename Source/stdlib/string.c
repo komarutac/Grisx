@@ -11,13 +11,54 @@ size_t strlen(char* String)
         Length++;
         String++;
     }
-    
+
     return Length;
 }
 
 int strcmp(char* A, char* B)
 {
-    // TODO: Replace before push
+    if (strlen(A) != strlen(B))
+    {
+        return -1;
+    }
+
+    for (size_t i = 0; i < strlen(A); i++)
+    {
+        if (A[i] < B[i])
+        {
+            return -1;
+        }
+        else if (B[i] < A[i])
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int strncmp(char* A, char* B, size_t Length)
+{
+    if (strlen(A) > Length || strlen(B) > Length)
+    {
+        return -1;
+    }
+
+    for (size_t i = 0; i < strlen(A); i++)
+    {
+        if (i < Length)
+        {
+            if (A[i] < B[i])
+            {
+                return -1;
+            }
+            else if (B[i] < A[i])
+            {
+                return 1;
+            }
+        }
+    }
+
     return 0;
 }
 
