@@ -1,2 +1,2 @@
 CFLAGS+=-I stdlib
-KERNEL_ARCH_OBJS+=stdlib/string.o
+KERNEL_ARCH_OBJS+=$(patsubst %.c,%.o,$(wildcard stdlib/*.c))
