@@ -6,12 +6,12 @@ Supported Loaders
 
 Tools Not Tested
 Not tested with masm, gas, or fasm as the assembler.
-Not tested with pcc, clang, or msvc as the compiler.
+Not tested with pcc or msvc as the compiler.
 
 Platform IntelPC, 32
     Build Requirements
     1. gnumake (bsdmake not support yet)
-    2. i386-elf-gcc or i686-elf-gcc
+    2. i386-elf-gcc, i686-elf-gcc, or clang
     3. nasm or yasm
 
     Minimum System Requirements

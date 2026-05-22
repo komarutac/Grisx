@@ -35,6 +35,10 @@ LIBS:=$(LIBS)
 REQINC:=$(REQINC) stdlib/Makefile $(Universal)/Makefile $(ARCHDIR)/Makefile
 INC:=$(INC)
 
+ifeq ($(CC), clang)
+CFLAGS+=-D__clang
+endif
+
 -include $(INC)
 include $(REQINC)
 
