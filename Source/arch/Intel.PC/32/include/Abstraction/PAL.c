@@ -24,12 +24,6 @@ void* PlatformCommand(int Function, void* Arguments, DALDevice* Device)
 	switch (Function)
 	{
 	case DevCMDHasFunction:
-		uint8_t Argument = (uint8_t)Arguments;
-		switch (Argument)
-		{
-			default:
-				return false;
-		}
 		break;
 	default:
 		break;
