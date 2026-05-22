@@ -1,5 +1,9 @@
-PROFILE?=default
+PROFILE?=none
+ifeq ($(PROFILE), none)
+AUTOCONFIG?=true
+else
 AUTOCONFIG?=false
+endif
 ifeq ($(AUTOCONFIG), false)
 include Profile/$(PROFILE).mk
 endif
