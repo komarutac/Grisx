@@ -79,6 +79,20 @@
 #define MsgDevPollNeeded 0x06
 #define MsgKrnShutdown 0x07
 
+extern char* Storage;
+extern char* Network;
+extern char* Display;
+extern char* Multimedia;
+extern char* Memory;
+extern char* Bridge;
+extern char* Comm;
+extern char* Input;
+extern char* SerialBus;
+extern char* Wireless;
+extern char* Crypto;
+extern char* BusHost;
+extern char* Generic;
+
 struct _DALProperties {
     int Bus;
     int IRQ;
