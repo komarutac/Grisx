@@ -5,6 +5,20 @@
 #include <Die.h>
 #include <string.h>
 
+char* Storage = "storagectrl";
+char* Network = "networkctrl";
+char* Display = "displayctrl";
+char* Multimedia = "multimediactrl";
+char* Memory = "memoryctrl";
+char* Bridge = "bridge";
+char* Comm = "commctrl";
+char* Input = "inputctrl";
+char* SerialBus = "serialctrl";
+char* Wireless = "wirelessctrl";
+char* Crypto = "cryptoctrl";
+char* BusHost = "bushost";
+char* Generic = "generic";
+
 DALDevice* DALDevices[255];
 int DALDevicesIndex = 0;
 

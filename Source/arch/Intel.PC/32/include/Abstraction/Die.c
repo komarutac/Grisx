@@ -22,6 +22,11 @@ void DieFault(char* Message, Registers* Regs, bool Die)
 		printf("Program Range: Unknown\r\n");
 	}
 	printf("Register Struct: 0x%X\r\n", Regs);
-	Stop(Message, 0x2000400);
-	for (;;);
+	printf("Message: %s\r\n", Message);
+	
+	__asm ("cli");
+	for (;;)
+	{
+		__asm ("hlt");
+	}
 }
