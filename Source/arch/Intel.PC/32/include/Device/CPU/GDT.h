@@ -1,5 +1,4 @@
-#ifndef C_CPU_GDT_HEADER
-#define C_CPU_GDT_HEADER
+#pragma once
 #include <stdint.h>
 
 // http://www.osdever.net/bkerndev/Docs/gdt.htm
@@ -25,4 +24,3 @@ extern void GDTSetGate(uint8_t Index, uint64_t Base, uint64_t Limit, uint8_t Acc
 extern void GDTInstall();
 extern GDTEntry GDT[3];
 extern GDTPointer GP;
-#endif
