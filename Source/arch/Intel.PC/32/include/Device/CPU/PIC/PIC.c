@@ -3,7 +3,6 @@
 #include <Device/IO.h>
 #include <Abstraction/DAL.h>
 #include <stdbool.h>
-#include <PPI.h>
 
 DALDevice* PICDevice = &(DALDevice){
 	.Name = "interruptctrl",
@@ -16,7 +15,6 @@ DALDevice* PICDevice = &(DALDevice){
 };
 
 void SendPICEOI(uint8_t IRQ) {
-    PPITrace(__FUNCTION__);
 	if (IRQ >= 8) {
 		outb(PICSlave, PICEOI);
 	}
@@ -24,8 +22,7 @@ void SendPICEOI(uint8_t IRQ) {
 	outb(PICMaster, PICEOI);
 }
 
-void RemapPIC(int Offset, int Offset1) { 
-    PPITrace(__FUNCTION__);
+void RemapPIC(int Offset, int Offset1) {
 	outb(PICMaster, ICW1Init | ICW14);
 	IOWait();
 
@@ -55,7 +52,6 @@ void RemapPIC(int Offset, int Offset1) {
 }
 
 void SetIRQMask(uint8_t IRQLine) {
-    PPITrace(__FUNCTION__);
 	uint16_t Port;
 	uint8_t Temp;
 
@@ -71,7 +67,6 @@ void SetIRQMask(uint8_t IRQLine) {
 }
 
 void ClearIRQMask(uint8_t IRQLine) {
-    PPITrace(__FUNCTION__);
 	uint16_t Port;
 	uint8_t Value;
 	uint8_t Temp;
@@ -89,7 +84,6 @@ void ClearIRQMask(uint8_t IRQLine) {
 }
 
 uint16_t GetIRQRegisterPIC(int OCW3) {
-    PPITrace(__FUNCTION__);
 	uint8_t Temp;
 	uint8_t Temp2;
 	outb(PICMaster, OCW3);
@@ -108,19 +102,16 @@ uint16_t GetISRPIC() {
 }
 
 void DisablePIC() {
-    PPITrace(__FUNCTION__);
 	outb(PICMaster + 1, 0xFF);
 	outb(PICSlave + 1, 0xFF);
 }
 
 void PICUninit(DALDevice* Device) {
-    PPITrace(__FUNCTION__);
 	DisablePIC();
 	Device->SendKrnMessage(MsgDevUnloaded, PICDevice);
 }
 
 void PICInit(DALDevice* Device) {
-    PPITrace(__FUNCTION__);
 	RemapPIC(0x20, 0x28);
 	Device->SendKrnMessage(MsgDevReady, PICDevice);
 }
