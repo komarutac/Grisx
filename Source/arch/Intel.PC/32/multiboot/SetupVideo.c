@@ -1,8 +1,9 @@
 #include <Abstraction/Console.h>
-#include "main.h"
+#include <main.h>
 
 void SetupVideo()
 {
-	SetupTextMode();
+	VCClear();
+	VCLoadConsolePointers();
 	DebugConsole = NullConsole;
 }
