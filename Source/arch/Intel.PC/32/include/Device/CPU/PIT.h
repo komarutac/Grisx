@@ -1,5 +1,4 @@
-#ifndef C_DEVICE_CPU_PIT_HEADER
-#define C_DEVICE_CPU_PIT_HEADER
+#pragma once
 #include <Device/IO.h>
 #include <Abstraction/Console.h>
 #include <Device/CPU/Interrupt.h>
@@ -25,4 +24,3 @@ extern void PITUninit();
 extern void* PITCommandFunc(int Function, void* Arguments, DALDevice* Device);
 extern void PITInit(DALDevice* Device);
 extern void PITUninit(DALDevice* Device);
-#endif
