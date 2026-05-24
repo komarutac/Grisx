@@ -5,14 +5,25 @@
 #include <Die.h>
 #include <Abstraction/PAL.h>
 
-void KernelMain()
+void InitVFS()
 {
 	VFSSetLoop(VirtualLoop);
 	VFSInit(MessageCallback);
+}
+
+void InitPlatformDevices()
+{
 	RegisterDALDevice(ArchDevice, MessageCallback);
 	RegisterDALDevice(PALDevice, MessageCallback);
-	RegisterDALDevice(PCIDevice, MessageCallback);
+}
 
+void InitPCIEnum()
+{
+	RegisterDALDevice(PCIDevice, MessageCallback);
+}
+
+DALDevice* FindDiskCtrl()
+{
 	DALDevice* FirstStorageCtrl = DALFindFirst(DeviceType(DeviceTypeDiskController), DALDevices, true);
 
 	if (FirstStorageCtrl == 0)
@@ -21,4 +32,14 @@ void KernelMain()
 		Stop("Device Not Found", 0x1000100);
 		for (;;);
 	}
+
+	return FirstStorageCtrl;
+}
+
+void KernelMain()
+{
+	InitVFS();
+	InitPlatformDevices();
+	InitPCIEnum();
+	FindDiskCtrl();
 }
