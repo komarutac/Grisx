@@ -13,15 +13,6 @@ void KernelMain()
 	RegisterDALDevice(PALDevice, MessageCallback);
 	RegisterDALDevice(PCIDevice, MessageCallback);
 
-	if (DALFindFirst(DeviceType(DeviceTypeVideo), DALDevices, true) == 0)
-	{
-		bool HasFallbackFunction = (bool)PALDevice->Command(DevCMDHasFunction, DevCMDSwitchToFallback, PALDevice);
-		if (HasFallbackFunction)
-		{
-			PALDevice->Command(DevCMDSwitchToFallback, DeviceTypeDisplay, PALDevice);
-		}
-	}
-
 	DALDevice* FirstStorageCtrl = DALFindFirst(DeviceType(DeviceTypeDiskController), DALDevices, true);
 
 	if (FirstStorageCtrl == 0)
