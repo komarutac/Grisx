@@ -13,16 +13,16 @@ extern volatile int TimerTicks;
 extern volatile int TimerSeconds;
 extern DALDevice* PITDevice;
 
-void SetTimerHz(int HZ);
-void SetBeepHz(int HZ);
-void PlayPCBeep();
-void StopPCBeep();
-void TimerCheck();
-void TimerHandler(Registers* Regs);
-void TimerWait(int Ticks);
+extern void SetTimerHz(int HZ);
+extern void SetBeepHz(int HZ);
+extern void PlayPCBeep();
+extern void StopPCBeep();
+extern void TimerCheck();
+extern void TimerHandler(Registers* Regs);
+extern void TimerWait(int Ticks);
 extern void PITInit();
 extern void PITUninit();
-void* PITCommandFunc(int Function, void* Arguments, DALDevice* Device);
-void PITInit(DALDevice* Device);
-void PITUninit(DALDevice* Device);
+extern void* PITCommandFunc(int Function, void* Arguments, DALDevice* Device);
+extern void PITInit(DALDevice* Device);
+extern void PITUninit(DALDevice* Device);
 #endif
