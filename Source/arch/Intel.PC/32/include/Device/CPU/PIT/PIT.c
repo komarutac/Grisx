@@ -1,9 +1,9 @@
-#include "PIT.h"
+#include <Device/CPU/PIT.h>
 #include <stdint.h>
 #include <Device/IO.h>
 #include <Abstraction/Console.h>
 #include <stdbool.h>
-#include "ISRS.h"
+#include <Device/CPU/ISRS.h>
 #include <PPI.h>
 
 volatile int TimerTicks;
