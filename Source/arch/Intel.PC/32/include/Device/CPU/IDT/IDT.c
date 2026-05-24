@@ -1,7 +1,7 @@
-#include "IDT.h"
+#include <Device/CPU/IDT.h>
 #include <stdint.h>
 #include <string.h>
-#include "ISRS.h"
+#include <Device/CPU/ISRS.h>
 #include <Abstraction/Console.h>
 #include <PPI.h>
 IDTEntry IDT[256];
