@@ -1,4 +1,4 @@
-#include "GDT.h"
+#include <Device/CPU/GDT.h>
 #include <stdint.h>
 
 GDTEntry GDT[3];
