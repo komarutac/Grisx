@@ -1,7 +1,7 @@
-#include "ISRS.h"
-#include "IDT.h"
-#include "PIC.h"
-#include "Interrupt.h"
+#include <Device/CPU/ISRS.h>
+#include <Device/CPU/IDT.h>
+#include <Device/CPU/PIC.h>
+#include <Device/CPU/Interrupt.h>
 #include <stdbool.h>
 #include <Die.h>
 #include <Abstraction/Console.h>
