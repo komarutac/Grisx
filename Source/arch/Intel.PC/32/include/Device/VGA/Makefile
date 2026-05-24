@@ -1,1 +1,2 @@
+include $(wildcard $(ARCHDIR)/include/Device/VGA/*/Makefile)
 KERNEL_ARCH_OBJS+=$(patsubst %.c,%.o,$(wildcard $(ARCHDIR)/include/Device/VGA/*.c))
