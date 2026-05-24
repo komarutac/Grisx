@@ -23,3 +23,5 @@ ifneq ($(shell which yasm),)
 AS=yasm
 endif
 endif
+
+$(info Detected AS=$(AS) CC=$(CC) EDITION=$(EDITION))
