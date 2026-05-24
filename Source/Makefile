@@ -15,6 +15,7 @@ endif
 OUTPUTFORMAT?=
 OUTPUT?=$(PLATFORM).$(BITS).$(EDITION).$(OUTPUTFORMAT)
 NAME?=GRISX
+ARCHAKA?=
 VERSION?=$(shell date "+%y.%m")
 HOST?=
 PLATFORM?=
@@ -60,10 +61,20 @@ $(KERNEL_OBJS)
 LINK_LIST=\
 $(LDFLAGS) \
 $(OBJS) \
-$(LIBS) 
+$(LIBS)
 
+ifneq ($(shell which qemu-system-$(ARCHAKA)),)
+.PHONY: all clean run
+else
 .PHONY: all clean
+endif
 .SUFFIXES: .o .c .S .asm
+
+
+ifneq ($(shell which qemu-system-$(ARCHAKA)),)
+run:
+	qemu-system-$(ARCHAKA) -kernel $(OUTPUT)
+endif
 
 all: Base.kernel
 Base.kernel: $(OBJS) $(ARCHDIR)/$(LOADER)/linker.ld
