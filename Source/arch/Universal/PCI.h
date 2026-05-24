@@ -18,6 +18,8 @@
 
 extern independent DALDevice* CheckPCIBus(uint8_t Bus, DALDevice* BusDevice);
 extern independent DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice);
+extern independent void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* ParentDevice);
+extern independent void PCIApplyName(uint8_t BaseClass, uint8_t SubClass, uint8_t ProgIF, DALDevice* Device);
 extern dependent uint16_t PCIReadConfig(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
 extern dependent uint8_t PCIReadByte(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
 extern independent void PCIUninit();
