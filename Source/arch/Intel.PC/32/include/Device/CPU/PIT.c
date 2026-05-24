@@ -8,7 +8,6 @@
 
 volatile int TimerTicks;
 volatile int TimerSeconds;
-volatile Registers LastRegisters;
 
 DALDevice* PITDevice = &(DALDevice){
 	.Name = "timer",

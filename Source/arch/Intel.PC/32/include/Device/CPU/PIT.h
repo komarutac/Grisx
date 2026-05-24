@@ -11,7 +11,6 @@
 
 extern volatile int TimerTicks;
 extern volatile int TimerSeconds;
-extern volatile Registers LastRegisters;
 extern DALDevice* PITDevice;
 
 void SetTimerHz(int HZ);
