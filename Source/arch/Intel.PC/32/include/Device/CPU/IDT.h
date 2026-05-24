@@ -19,3 +19,4 @@ extern void IDTLoad();
 extern void IDTSetGate(uint8_t Index, uint64_t Base, uint16_t Selector, uint8_t Flags);
 extern void IDTInstall();
 extern IDTEntry IDT[256];
+extern IDTPointer IDTP;
