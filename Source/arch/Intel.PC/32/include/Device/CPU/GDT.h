@@ -23,4 +23,6 @@ struct _GDTPointer
 extern void GDTFlush();
 extern void GDTSetGate(uint8_t Index, uint64_t Base, uint64_t Limit, uint8_t Access, uint8_t Granularity);
 extern void GDTInstall();
+extern GDTEntry GDT[3];
+extern GDTPointer GP;
 #endif
