@@ -5,5 +5,5 @@ void KernelMain()
 	InitVFS();
 	InitPlatformDevices();
 	InitPCIEnum();
-	FindDiskCtrl();
+	for (;;);
 }
