@@ -1,5 +1,6 @@
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 #define DeviceType(A) (DALProperties){.Type=A}
 #define DeviceBusCPU 0x01
 #define DeviceBusISA 0x02
@@ -94,36 +95,36 @@ extern char* BusHost;
 extern char* Generic;
 
 struct _DALProperties {
-    int Bus;
-    int IRQ;
-    int Vendor;
-    int Function;
-    int Class;
-    int SubClass;
-    int Type;
-    int Status;
-    int HeaderType;
-    int ProgIF;
-    int DeviceID;
+    char Bus;
+    uint16_t IRQ;
+    uint16_t Vendor;
+    uint16_t Function;
+    uint16_t Class;
+    uint16_t SubClass;
+    uint16_t Type;
+    uint16_t Status;
+    uint16_t HeaderType;
+    uint16_t ProgIF;
+    uint16_t DeviceID;
     bool Virtual;
 }; typedef struct _DALProperties DALProperties;
 
 struct _DALDevice {
     char* Name;
     DALProperties* Properties;
-	int ChildrenCount;
-	int Bar0;
-	int Bar1;
-	int Bar2;
-	int Bar3;
-	int Bar4;
+	char ChildrenCount;
+	uint16_t Bar0;
+	uint16_t Bar1;
+	uint16_t Bar2;
+	uint16_t Bar3;
+	uint16_t Bar4;
     bool (*Test)(struct _DALDevice*);
     void (*Initialize)(struct _DALDevice*);
     void (*Uninitialize)(struct _DALDevice*);
-    int (*GetStatus)(struct _DALDevice*);
-	int (*SendKrnMessage)(int Message, struct _DALDevice*);
-    void* (*Command)(int Function, void* Arguments, struct _DALDevice*);
-	struct _DALDevice* Children[255];
+    char (*GetStatus)(struct _DALDevice*);
+	char (*SendKrnMessage)(char Message, struct _DALDevice*);
+    void* (*Command)(char Function, void* Arguments, struct _DALDevice*);
+	struct _DALDevice* Children[32];
 }; typedef struct _DALDevice DALDevice;
 
 extern DALDevice* DALDevices[255];
