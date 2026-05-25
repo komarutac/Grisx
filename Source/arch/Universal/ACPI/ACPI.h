@@ -1,6 +1,9 @@
 #pragma once
 #include <stdint.h>
 #include <Abstraction/DAL.h>
+#include <ACPI/RSDP.h>
+#include <stddef.h>
+
 #define ZeroOp 0x00
 #define OneOp 0x01
 #define AliasOp 0x06
@@ -24,6 +27,14 @@
 #define RootChar 0x5C
 #define ParentPrefixChar 0x5E
 #define NameCharUnder 0x5F
+
+struct _ACPILookupEntry
+{
+    SDT* Pointer;
+}; typedef struct _ACPILookupEntry ACPILookupEntry;
+
+extern ACPILookupEntry* ACPILookupTable[64];
+extern size_t ACPILookupIndex;
 
 extern DALDevice* ACPISystem;
 extern void ACPIUninit(DALDevice* Device);
