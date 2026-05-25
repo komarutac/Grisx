@@ -99,7 +99,6 @@ DALDevice* DALFindFirst(DALProperties Properties, DALDevice** List, bool TypeOnl
 		DALDevice* Device = List[i];
 		if (Device->Properties->Type == Properties.Type)
 		{
-			printf("OREO\r\n");
 			return Device;
 		}
 		
