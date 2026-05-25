@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 struct _RSDP {
 	char Magic[8];
@@ -98,4 +99,4 @@ struct _RSDT {
 	uint32_t OtherSDT[((4 + 8 + 2 + 6 + 8 + 8 + 8) - sizeof(SDT)) / 4];
 }; typedef struct _RSDT RSDT;
 
-size_t SearchForRSDP();
+extern size_t SearchForRSDP();
