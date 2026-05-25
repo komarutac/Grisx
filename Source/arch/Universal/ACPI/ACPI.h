@@ -31,9 +31,10 @@
 struct _ACPILookupEntry
 {
     SDT* Pointer;
+    struct _ACPILookupEntry* Next;
 }; typedef struct _ACPILookupEntry ACPILookupEntry;
 
-extern ACPILookupEntry* ACPILookupTable[64];
+extern ACPILookupEntry* ACPILookupTable;
 extern size_t ACPILookupIndex;
 
 extern DALDevice* ACPISystem;
