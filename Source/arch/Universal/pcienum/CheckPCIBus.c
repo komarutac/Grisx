@@ -1,6 +1,7 @@
 #include <Abstraction/DAL.h>
 #include <stdint.h>
 #include <PCI.h>
+#include <Abstraction/Console.h>
 
 DALDevice* CheckPCIBus(uint8_t Bus, DALDevice* BusDevice)
 {

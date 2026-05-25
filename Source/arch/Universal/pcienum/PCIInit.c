@@ -2,6 +2,7 @@
 #include <PCI.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <balloc.h>
 
 void PCIInit(DALDevice* Device)
 {
@@ -10,15 +11,9 @@ void PCIInit(DALDevice* Device)
 
 	if ((HeaderType & 0x80) == 0)
 	{
-		DALDevice* BusDevice = &(DALDevice)
-		{
-			.Name = BusHost,
-			.Properties = &(DALProperties)
-            {
-				.Bus = DeviceBusPCI,
-				.HeaderType = HeaderType
-			}
-		};
+		DALDevice* BusDevice = (DALDevice*)balloc(sizeof(DALDevice));
+		BusDevice->Name = BusHost;
+
 		CheckPCIBus(0, BusDevice);
 		if (BusDevice != NULL)
 		{
@@ -36,15 +31,10 @@ void PCIInit(DALDevice* Device)
 				break;
 			}
 			Bus = Function;
-			DALDevice* BusDevice = &(DALDevice)
-			{
-				.Name = BusHost,
-				.Properties = &(DALProperties)
-                {
-					.Bus = DeviceBusPCI,
-					.HeaderType = HeaderType
-				}
-			};
+
+			DALDevice* BusDevice = (DALDevice*)balloc(sizeof(DALDevice));
+			BusDevice->Name = BusHost;
+
 			CheckPCIBus(Bus, BusDevice);
 			if (BusDevice != NULL)
 			{

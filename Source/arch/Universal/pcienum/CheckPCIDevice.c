@@ -13,15 +13,8 @@ DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice)
 		return NULL;
 	}
 
-	DALDevice* SubDevice = &(DALDevice)
-	{
-		.Name = Generic,
-		.Properties = &(DALProperties)
-        {
-			.Bus = DeviceBusPCI,
-			.Vendor = VendorID
-		}
-	};
+	DALDevice* SubDevice = (DALDevice*)balloc(sizeof(DALDevice));
+	SubDevice->Name = Generic;
 	
 	CheckPCIFunction(Bus, Device, Function, SubDevice);
 	uint8_t HeaderType = PCIReadConfig(Bus, Device, Function, 0xC + 2);

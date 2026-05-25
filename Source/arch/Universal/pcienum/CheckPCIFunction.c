@@ -29,14 +29,10 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 	if ((BaseClass == 0x6) && (SubClass == 0x4))
 	{
 		SecondaryBus = PCIReadByte(Bus, Device, Function, 0x18 + 1);
-		DALDevice* SubDevice = &(DALDevice)
-		{
-			.Name = BusName,
-			.Properties = &(DALProperties)
-            {
-				.Bus = DeviceBusPCI,
-			}
-		};
+
+		DALDevice* SubDevice = (DALDevice*)balloc(sizeof(DALDevice));
+		SubDevice->Name = BusName;
+		
 		CheckPCIBus(SecondaryBus, SubDevice);
 		RegisterDALDeviceChild(ParentDevice, SubDevice, PCIDevice->SendKrnMessage);
 	}
