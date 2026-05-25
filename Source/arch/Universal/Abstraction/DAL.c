@@ -19,7 +19,7 @@ char* Crypto = "cryptoctrl";
 char* BusHost = "bushost";
 char* Generic = "generic";
 
-DALDevice* DALDevices[255];
+DALDevice* DALDevices[32];
 int DALDevicesIndex = 0;
 
 int MessageCallback(int Message, DALDevice* Device)
@@ -139,6 +139,7 @@ void RegisterDALDevice(DALDevice* Device, void* MessageHandler)
 		}
 	}
 }
+
 void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHandler) {
 	if (Parent->ChildrenCount++ < 255) {
 		if (Child->Name == NULL) {

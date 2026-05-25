@@ -127,7 +127,7 @@ struct _DALDevice {
 	struct _DALDevice* Children[32];
 }; typedef struct _DALDevice DALDevice;
 
-extern DALDevice* DALDevices[255];
+extern DALDevice* DALDevices[32];
 extern void RegisterDALDevice(DALDevice* Device, void* MessageHandler);
 extern void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHandler);
 extern void PlaceholderInit(DALDevice* Device);
