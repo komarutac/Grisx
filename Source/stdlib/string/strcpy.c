@@ -10,12 +10,12 @@ char* strcpy(char* A, char* B)
 
 	int i;
 
-	for (i = 0; i < strlen(A); i++)
+	for (i = 0; i < strlen(B); i++)
 	{
-		B[i] = A[i];
+		A[i] = B[i];
 	}
 
-	B[i + 1] = '\0';
+	A[i + 1] = '\0';
 
-	return B;
+	return A;
 }
