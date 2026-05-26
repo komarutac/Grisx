@@ -3,19 +3,19 @@
 
 char* strcpy(char* A, char* B)
 {
-    if (A == NULL, B == NULL)
-    {
-        return NULL;
-    }
+	if (A == NULL, B == NULL)
+	{
+		return NULL;
+	}
 
-    int i;
+	int i;
 
-    for (i = 0; i < strlen(A); i++)
-    {
-        B[i] = A[i];
-    }
+	for (i = 0; i < strlen(A); i++)
+	{
+		B[i] = A[i];
+	}
 
-    B[i + 1] = '\0';
+	B[i + 1] = '\0';
 
-    return B;
+	return B;
 }
