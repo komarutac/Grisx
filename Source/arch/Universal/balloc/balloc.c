@@ -2,11 +2,12 @@
 #include <balloc.h>
 #include <Abstraction/Console.h>
 #include <string.h>
+#include <macro.h>
 
 char Blocks[2048 * 2];
 int Offset = 0;
 
-void* balloc(int Size)
+void* allocator(bump, alloc)(int Size)
 {
 	if (sizeof(Blocks) - Offset < Size)
 	{
