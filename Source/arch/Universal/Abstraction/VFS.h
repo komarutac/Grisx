@@ -18,8 +18,6 @@ struct _VFSEntry {
 	bool Directory;
 	bool MountLink;
 	size_t Size;
-	char Cache[512];
-	size_t CacheSize;
 	VFSMount* Mount;
     int (*Read)(struct _VFSEntry* Entry, char* Buffer, size_t Size);
     int (*Write)(struct _VFSEntry* Entry, char* Buffer, size_t Size, size_t Position);
