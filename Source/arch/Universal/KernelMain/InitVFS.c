@@ -4,6 +4,5 @@
 
 void InitVFS()
 {
-	VFSSetLoop(VirtualLoop);
 	VFSInit(MessageCallback);
 }
