@@ -13,7 +13,7 @@ DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice)
 		return NULL;
 	}
 
-	DALDevice* SubDevice = (DALDevice*)balloc(sizeof(DALDevice));
+	DALDevice* SubDevice = allocator(bump, alloc)(sizeof(DALDevice));
 	SubDevice->Name = Generic;
 	
 	CheckPCIFunction(Bus, Device, Function, SubDevice);

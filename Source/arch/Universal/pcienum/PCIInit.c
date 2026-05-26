@@ -11,7 +11,7 @@ void PCIInit(DALDevice* Device)
 
 	if ((HeaderType & 0x80) == 0)
 	{
-		DALDevice* BusDevice = (DALDevice*)balloc(sizeof(DALDevice));
+		DALDevice* BusDevice = allocator(bump, alloc)(sizeof(DALDevice));
 		BusDevice->Name = BusHost;
 
 		CheckPCIBus(0, BusDevice);
@@ -32,7 +32,7 @@ void PCIInit(DALDevice* Device)
 			}
 			Bus = Function;
 
-			DALDevice* BusDevice = (DALDevice*)balloc(sizeof(DALDevice));
+			DALDevice* BusDevice = allocator(bump, alloc)(sizeof(DALDevice));
 			BusDevice->Name = BusHost;
 
 			CheckPCIBus(Bus, BusDevice);

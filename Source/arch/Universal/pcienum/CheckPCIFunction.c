@@ -30,7 +30,7 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 	{
 		SecondaryBus = PCIReadByte(Bus, Device, Function, 0x18 + 1);
 
-		DALDevice* SubDevice = (DALDevice*)balloc(sizeof(DALDevice));
+		DALDevice* SubDevice = allocator(bump, alloc)(sizeof(DALDevice));
 		SubDevice->Name = BusName;
 		
 		CheckPCIBus(SecondaryBus, SubDevice);
