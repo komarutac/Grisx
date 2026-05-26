@@ -3,7 +3,7 @@
 
 char* strcpy(char* A, char* B)
 {
-	if (A == NULL, B == NULL)
+	if (A == NULL || B == NULL)
 	{
 		return NULL;
 	}

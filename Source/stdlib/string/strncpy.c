@@ -3,7 +3,7 @@
 
 char* strncpy(char* A, char* B, size_t Length)
 {
-	if (A == NULL, B == NULL)
+	if (A == NULL || B == NULL)
 	{
 		return NULL;
 	}
