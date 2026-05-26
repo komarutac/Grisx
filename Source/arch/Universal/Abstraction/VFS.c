@@ -3,13 +3,11 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <Abstraction/Console.h>
+#include <balloc.h>
+#include <macro.h>
+#include <string.h>
 
 char* VFSLoopName = "vfsloop";
-
-VFSEntry* VirtualDev = &(VFSEntry) {
-	.Name = "Device",
-	.Directory = 1,
-};
 
 DALDevice* VFSLoopback = &(DALDevice) {
 	.Properties = &(DALProperties) {
@@ -19,27 +17,35 @@ DALDevice* VFSLoopback = &(DALDevice) {
 };
 
 VFSMount* VirtualRootMount = &(VFSMount) {
-	.PartID = 0
-};
-
-VFSEntry* VirtualRoot = &(VFSEntry) {
-	.Name = "/",
-	.Directory = 1,
-	.MountLink = 1
-};
-VFSEntry* VirtualLoop = &(VFSEntry) {
-	.Name = "loop",
+	.PartID = 0,
 };
 
 VFSEntry* VFSRoot = 0;
 VFSEntry* VFSLast = 0;
 
+VFSEntry* VFSCreateFile(char* Name)
+{
+	VFSEntry* Entry = allocator(bump, alloc)(sizeof(VFSEntry));
+	Entry->Directory = false;
+	Entry->Name = allocator(bump, alloc)(strlen(Name) + 1);
+	strcpy(Name, Entry->Name);
+	return Entry;
+}
+
+VFSEntry* VFSCreateDirectory(char* Name)
+{
+	VFSEntry* Entry = allocator(bump, alloc)(sizeof(VFSEntry));
+	Entry->Directory = true;
+	Entry->Name = allocator(bump, alloc)(strlen(Name) + 1);
+	strcpy(Name, Entry->Name);
+	return Entry;
+}
+
 void VFSInit(void* MessageCallback) {
 	VFSLoopback->Name = VFSLoopName;
 	VirtualRootMount->Device = VFSLoopback;
-	VFSLast = VirtualLoop;
-	VFSAdd(VirtualRoot);
-	VFSAdd(VirtualDev);
+	VFSAdd(VFSCreateDirectory("rom:/"));
+	VFSAdd(VFSCreateDirectory("rom:/Device"));
 	RegisterDALDevice(VFSLoopback, MessageCallback);
 }
 
@@ -55,23 +61,9 @@ void VFSSetLoop(VFSEntry* Entry) {
 }
 
 int VFSLoopRead(VFSEntry* Entry, char* Buffer, size_t Size) {
-	/*if (Size > Entry->CacheSize) {
-		return -1;
-	}
-	
-	for (size_t i = 0; i < Size; i++) {
-		Buffer[i] = Entry->Cache[i];
-	}*/
 	return Size;
 }
 
 int VFSLoopWrite(VFSEntry* Entry, char* Buffer, size_t Size, size_t Position) {
-	/*if (Size + Position > Entry->CacheSize) {
-		return -1;
-	}
-	
-	for (size_t i = Position; i < Size; i++) {
-		Entry->Cache[i] = Buffer[i];
-	}*/
 	return Size;
 }
