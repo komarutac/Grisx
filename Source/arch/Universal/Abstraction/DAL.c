@@ -4,6 +4,7 @@
 #include <Abstraction/VFS.h>
 #include <Die.h>
 #include <string.h>
+#include <balloc.h>
 
 char* Storage = "storagectrl";
 char* Network = "networkctrl";
@@ -130,6 +131,9 @@ void RegisterDALDevice(DALDevice* Device, void* MessageHandler)
 		}
 		DeviceFile->Previous = VirtualDev;
 		VirtualDev->Next = DeviceFile; */
+		VFSEntry* DeviceFile = allocator(bump, alloc)(sizeof(VFSEntry));
+		DeviceFile->Name = Device->Name;
+		VFSAdd(DeviceFile);
 		ConFormatTo(DefaultConsole, "Registering %s, Class 0x%X/0x%X, ID 0x%X/0x%X as a parent\r\n", Device->Name, Device->Properties->Class, Device->Properties->SubClass, Device->Properties->DeviceID, Device->Properties->Vendor);
 		DALDevices[DALDevicesIndex] = Device;
 		DALDevices[DALDevicesIndex]->SendKrnMessage = MessageHandler;
@@ -153,6 +157,9 @@ void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHa
 		}
 		DeviceFile->Previous = VirtualDev;
 		VirtualDev->Next = DeviceFile; */
+		VFSEntry* DeviceFile = allocator(bump, alloc)(sizeof(VFSEntry));
+		DeviceFile->Name = Child->Name;
+		VFSAdd(DeviceFile);
 		ConFormatTo(DefaultConsole, "Registering %s, Class 0x%X/0x%X, ID 0x%X/0x%X as a child\r\n", Child->Name, Child->Properties->Class, Child->Properties->SubClass, Child->Properties->DeviceID, Child->Properties->Vendor);
 		Parent->Children[Parent->ChildrenCount] = Child;
 		Parent->Children[Parent->ChildrenCount]->SendKrnMessage = MessageHandler;
