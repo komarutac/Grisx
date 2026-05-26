@@ -123,14 +123,6 @@ void RegisterDALDevice(DALDevice* Device, void* MessageHandler)
 			Oops("invalid device name", "device");
 			return;
 		}
-		/* VFSEntry* DeviceFile = &(VFSEntry) {};
-		DeviceFile->Name = Device->Name;
-		if (VirtualDev->Next != 0) {
-			DeviceFile->Next = VirtualDev->Next;
-			VirtualDev->Next->Previous = DeviceFile;
-		}
-		DeviceFile->Previous = VirtualDev;
-		VirtualDev->Next = DeviceFile; */
 		VFSEntry* DeviceFile = allocator(bump, alloc)(sizeof(VFSEntry));
 		DeviceFile->Name = Device->Name;
 		VFSAdd(DeviceFile);
@@ -149,14 +141,6 @@ void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHa
 			Oops("invalid device name", "device");
 			return;
 		}
-		/* VFSEntry* DeviceFile = &(VFSEntry) {};
-		DeviceFile->Name = Child->Name;
-		if (VirtualDev->Next != 0) {
-			DeviceFile->Next = VirtualDev->Next;
-			VirtualDev->Next->Previous = DeviceFile;
-		}
-		DeviceFile->Previous = VirtualDev;
-		VirtualDev->Next = DeviceFile; */
 		VFSEntry* DeviceFile = allocator(bump, alloc)(sizeof(VFSEntry));
 		DeviceFile->Name = Child->Name;
 		VFSAdd(DeviceFile);
