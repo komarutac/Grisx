@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-void* memcmp(void* APointer, void* BPointer, size_t Length)
+void* memcpy(void* APointer, void* BPointer, size_t Length)
 {
     uint8_t* A = (const uint8_t*)APointer;
     uint8_t* B = (const uint8_t*)BPointer;
