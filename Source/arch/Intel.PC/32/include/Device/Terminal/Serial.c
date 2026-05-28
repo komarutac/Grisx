@@ -1,10 +1,20 @@
 #include "Serial.h"
 #include <stdint.h>
 #include <Device/IO.h>
-#include "Abstraction/Console.h"
+#include <Abstraction/Console.h>
 
 uint16_t* SerialAddress = (uint16_t*)0x400;
 int SerialRegister = 0;
+
+void SerialLoadConsole()
+{
+	DefaultConsole->Busy = 1;
+	DefaultConsole->X = 0;
+	DefaultConsole->Y = 0;
+	DefaultConsole->WriteChar = &SerialWriteByte;
+	DefaultConsole->WriteString = &SerialWriteString;
+	DefaultConsole->Busy = 0;
+}
 
 uint8_t SerialWrite(uint8_t Data)
 {
