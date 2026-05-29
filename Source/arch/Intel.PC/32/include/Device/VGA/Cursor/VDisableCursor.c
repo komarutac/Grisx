@@ -4,6 +4,5 @@
 
 void VDisableCursor()
 {
-    outb(VCRTCommand, 0x0A);
-    outb(VCRTValue, 0x20);
+    VCWriteRegister(VCRTCommand, 0x0A, 0x20);
 }

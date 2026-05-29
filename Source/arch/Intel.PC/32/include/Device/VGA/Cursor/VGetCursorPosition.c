@@ -8,10 +8,9 @@ uint16_t VGetCursorPosition()
     uint8_t Temp;
     uint16_t Position = 0;
     outb(VCRTCommand, 0x0F);
-    Temp = inb(VCRTValue);
+    Temp = VCReadRegister(VCRTCommand, 0x0F);
     Position |= Temp;
-    outb(VCRTCommand, 0x0E);
-    Temp = inb(VCRTValue);
+    Temp = VCReadRegister(VCRTCommand, 0x0E);
     Position |= Temp << 8;
     return Position;
 }
