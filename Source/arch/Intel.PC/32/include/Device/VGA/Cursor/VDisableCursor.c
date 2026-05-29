@@ -1,6 +1,6 @@
 #include <Device/IO.h>
 #include <Device/VGA/Cursor.h>
-#include <Device/VGA/ColorTextMode.h>
+#include <vgatext.h>
 
 void VDisableCursor()
 {

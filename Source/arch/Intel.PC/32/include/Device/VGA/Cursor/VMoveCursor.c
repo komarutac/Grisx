@@ -1,6 +1,6 @@
 #include <Device/IO.h>
 #include <Device/VGA/Cursor.h>
-#include <Device/VGA/ColorTextMode.h>
+#include <vgatext.h>
 #include <stdint.h>
 
 void VMoveCursor(const uint8_t Top, const uint8_t Left)

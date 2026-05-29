@@ -1,23 +1,12 @@
-#include "ColorTextMode.h"
+#include <vgatext.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <Device/IO.h>
+#include <Abstraction/Console.h>
 #include "Cursor.h"
 
-uint8_t VCResWidth = 80;
-uint8_t VCResHeight = 25;
-uint8_t VCResLeft = 0;
-uint8_t VCResTop = 0;
 uint16_t* VCTextBuffer0 = (uint16_t*)0xB8000;
-uint8_t VCCharLeft = 0;
-uint8_t VCCharTop = 0;
-uint8_t VCForegrond = 0x7;
-uint8_t VCBackground = 0x0;
-uint8_t VCTextColor = 0x07;
-uint8_t VCLineHeight = 0x01;
-uint16_t VCConsoleBuffer[80 * 25];
-uint8_t VCIndent = 4;
 
 void VCWriteRegister(uint16_t Port, uint8_t Register, uint8_t Value) {
 	outb(Port, Register);
@@ -82,64 +71,6 @@ void VCSetFont(uint8_t *Buffer, uint16_t FontHeight)
 	VCWriteRegister(0x3CE, 6, gc6);
 }
 
-
-uint16_t VCCharEntry(const uint16_t Char, const uint16_t Attribute) {
-	return Char | Attribute << 8;
-}
-
-int VCGetPixels() {
-	return VCResWidth * VCResHeight;
-}
-
-uint16_t VCCreateIndex(const uint8_t Top, const uint8_t Left) {
-	return (Top * VCResWidth) + Left;
-}
-
-void VCScrollDown() {
-	for (uint8_t Top = VCResTop; Top < DefaultConsole->Y; Top++) {
-		for (uint8_t Left = VCResLeft; Left < VCResWidth; Left++) {
-			const uint16_t IndexAbove = VCCreateIndex(Top + 1, Left);
-			const uint16_t Index = VCCreateIndex(Top, Left);
-			DefaultConsole->TextBuffer[Index] = DefaultConsole->TextBuffer[IndexAbove];
-		}
-	}
-
-	for (uint8_t Left = VCResLeft; Left < DefaultConsole->Width; Left++) {
-		const size_t Index = VCCreateIndex(DefaultConsole->Y, Left);
-		DefaultConsole->TextBuffer[Index] = VCCharEntry(' ', VCTextColor);
-	}
-}
-
-void VCSetForegroundColor(ARGB Color) {
-	VCForegrond = Color.Red;
-	VCTextColor = VGATextColor(VCBackground, VCForegrond);
-}
-
-void VCSetBackgroundColor(ARGB Color) {
-	VCBackground = Color.Red;
-	VCTextColor = VGATextColor(VCBackground, VCForegrond);
-}
-
-void VCNewLine() {
-	DefaultConsole->Busy = true;
-
-	if (DefaultConsole->Y++ + 1 == VCResHeight) {
-		VCScrollDown();
-		DefaultConsole->Y--;
-	};
-
-	VMoveCursor(DefaultConsole->Y, DefaultConsole->X);
-	DefaultConsole->Busy = false;
-}
-
-void VCClear() {
-	DefaultConsole->Busy = true;
-	for (size_t i = 0; i < VCResWidth * VCResHeight; i++) {
-		VCTextBuffer0[i] = VCCharEntry(' ', VCTextColor);
-	}
-	DefaultConsole->Busy = false;
-}
-
 void VCUpdate() {
 	DefaultConsole->Busy = 1;
 	for (size_t i = 0; i < VCResWidth * VCResHeight; i++) {
@@ -149,75 +80,4 @@ void VCUpdate() {
 		VCTextBuffer0[i] = DefaultConsole->TextBuffer[i];
 	}
 	DefaultConsole->Busy = 0;
-}
-
-void VCAddEntry(uint16_t* Array, uint16_t Entry) {
-	const size_t Index = VCCreateIndex(DefaultConsole->Y, DefaultConsole->X);
-	if (Array[Index] != Entry) {
-		Array[Index] = Entry;
-	}
-}
-
-void VCWriteCharAt(uint8_t Char, int X, int Y) {
-	DefaultConsole->TextBuffer[VCCreateIndex(Y, X)] = VCCharEntry(Char, VCTextColor);
-	VCUpdate();
-}
-
-void VCWriteChar(uint8_t Char) {
-	switch (Char) {
-		case '\n':
-			VCNewLine();
-			return;
-		case '\t':
-			for (size_t i = 0; i < VCIndent; i++) {
-				VCWriteChar(' ');
-				VMoveCursor(DefaultConsole->Y, DefaultConsole->X);
-			}
-			return;
-		case '\b':
-			VMoveCursor(DefaultConsole->Y, DefaultConsole->X--);
-			return;
-		case '\r':
-			DefaultConsole->X = 0;
-			VMoveCursor(DefaultConsole->Y, DefaultConsole->X);
-			return;
-	}
-
-	VCAddEntry(DefaultConsole->TextBuffer, VCCharEntry(Char, VCTextColor));
-
-	if (DefaultConsole->X++ == VCResWidth) {
-		DefaultConsole->X = 0;
-		if (DefaultConsole->Y++ == VCResHeight) {
-			VCScrollDown();
-			DefaultConsole->Y--;
-		}
-	}
-
-	VMoveCursor(DefaultConsole->Y, DefaultConsole->X);
-}
-
-void VCWriteString(char* Text)
-{
-	while (*Text != '\0')
-	{
-		VCWriteChar(*Text);
-		Text++;
-	}
-	VCUpdate();
-}
-
-void VCLoadConsolePointers() {
-	DefaultConsole->Busy = 1;
-	DefaultConsole->X = 0;
-	DefaultConsole->Y = 0;
-	DefaultConsole->Width = VCResWidth;
-	DefaultConsole->Height = VCResHeight;
-	DefaultConsole->Clear = &VCClear;
-	DefaultConsole->WriteChar = &VCWriteChar;
-	DefaultConsole->WriteString = &VCWriteString;
-	DefaultConsole->SetForegroundColor = &VCSetForegroundColor;
-	DefaultConsole->SetBackgroundColor = &VCSetBackgroundColor;
-	DefaultConsole->WriteCharAt = &VCWriteCharAt;
-	DefaultConsole->Busy = 0;
-	DefaultConsole->TextBuffer = VCConsoleBuffer;
 }

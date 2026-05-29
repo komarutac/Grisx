@@ -1,6 +1,6 @@
 #include <Device/IO.h>
 #include <Device/VGA/Cursor.h>
-#include <Device/VGA/ColorTextMode.h>
+#include <vgatext.h>
 #include <stdint.h>
 
 void VEnableCursor(const uint8_t Start, const uint8_t End)
