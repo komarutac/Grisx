@@ -5,7 +5,7 @@
 void VCNewLine() {
 	DefaultConsole->Busy = true;
 
-	if (DefaultConsole->Y++ + 1 == VCResHeight) {
+	if (DefaultConsole->Y++ == VCResHeight) {
 		VCScrollDown();
 		DefaultConsole->Y--;
 	};
