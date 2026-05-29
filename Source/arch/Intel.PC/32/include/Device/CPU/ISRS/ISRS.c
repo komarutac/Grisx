@@ -60,7 +60,7 @@ void ISRSInstall() {
     IDTSetGate(45, (unsigned)UnitInterrupt, 0x08, 0x8E);
     IDTSetGate(46, (unsigned)PrimaryATAInterrupt, 0x08, 0x8E);
     IDTSetGate(47, (unsigned)SecondaryATAInterrupt, 0x08, 0x8E);
-    IDTInstall();
+    IDTLoad();
 }
 
 Registers* ISRHandler(Registers* Regs) {
