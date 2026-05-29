@@ -35,7 +35,7 @@ extern uint8_t VCForegrond;
 extern uint8_t VCBackground;
 extern uint8_t VCTextColor;
 extern uint8_t VCLineHeight;
-extern uint16_t VCConsoleBuffer[80 * 50];
+extern uint16_t VCConsoleBuffer[80 * 25];
 extern uint8_t VCIndent;
 
 enum VGATextColors

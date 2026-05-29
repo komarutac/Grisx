@@ -16,7 +16,7 @@ uint8_t VCForegrond = 0x7;
 uint8_t VCBackground = 0x0;
 uint8_t VCTextColor = 0x07;
 uint8_t VCLineHeight = 0x01;
-uint16_t VCConsoleBuffer[80 * 50];
+uint16_t VCConsoleBuffer[80 * 25];
 uint8_t VCIndent = 4;
 
 void VCWriteRegister(uint16_t Port, uint8_t Register, uint8_t Value) {
@@ -38,36 +38,26 @@ void VCSetPlane(unsigned Plane)
 	Plane &= 3;
 	PMask = 1 << Plane;
 
-	outb(0x3CE, 4);
-	outb(0x3CF, Plane);
-
-	outb(0x3C4, 2);
-	outb(0x3C5, PMask);
+	VCWriteRegister(0x3CE, 4, Plane);
+	VCWriteRegister(0x3C4, 2, PMask);
 }
 
 void VCSetFont(uint8_t *Buffer, uint16_t FontHeight)
 {
 	uint8_t seq2, seq4, gc4, gc5, gc6;
-	uint8_t* Pointer = (uint8_t*) 0xB8000;
+	uint8_t* Pointer = (uint8_t*)0xB8000;
 
-	outb(0x3C4, 2);
-	seq2 = inb(0x3C5);
-
-	outb(0x3C4, 4);
-	seq4 = inb(0x3C5);
+	seq2 = VCReadRegister(0x3C4, 2);
+	seq4 = VCReadRegister(0x3C4, 4);
 
 	outb(0x3C5, 0x04);
 
-	outb(0x3CE, 4);
-	gc4 = inb(0x3CF);
-
-	outb(0x3CE, 5);
-	gc5 = inb(0x3CF);
+	gc4 = VCReadRegister(0x3CE, 4);
+	gc5 = VCReadRegister(0x3CE, 5);
 
 	outb(0x3CF, gc5 & ~0x10);
 
-	outb(0x3CE, 6);
-	gc6 = inb(0x3CF);
+	gc6 = VCReadRegister(0x3CE, 6);
 
 	outb(0x3CF, gc6 & ~0x02);
 
@@ -85,16 +75,11 @@ void VCSetFont(uint8_t *Buffer, uint16_t FontHeight)
 		}
 	}
 
-	outb(0x3C4, 2);
-	outb(0x3C5, seq2);
-	outb(0x3C4, 4);
-	outb(0x3C5, seq4);
-	outb(0x3CE, 4);
-	outb(0x3CF, gc4);
-	outb(0x3CE, 5);
-	outb(0x3CF, gc5);
-	outb(0x3CE, 6);
-	outb(0x3CF, gc6);
+	VCWriteRegister(0x3C4, 2, seq2);
+	VCWriteRegister(0x3C4, 4, seq2);
+	VCWriteRegister(0x3CE, 4, gc4);
+	VCWriteRegister(0x3CE, 5, gc5);
+	VCWriteRegister(0x3CE, 6, gc6);
 }
 
 
@@ -200,9 +185,9 @@ void VCWriteChar(uint8_t Char) {
 
 	VCAddEntry(DefaultConsole->TextBuffer, VCCharEntry(Char, VCTextColor));
 
-	if (DefaultConsole->X++ + 1 == VCResWidth) {
+	if (DefaultConsole->X++ == VCResWidth) {
 		DefaultConsole->X = 0;
-		if (DefaultConsole->Y++ + 1 == VCResHeight) {
+		if (DefaultConsole->Y++ == VCResHeight) {
 			VCScrollDown();
 			DefaultConsole->Y--;
 		}
