@@ -71,13 +71,11 @@ else
 endif
 .SUFFIXES: .o .c .S .asm
 
-
+all: Base.kernel
 ifneq ($(shell which qemu-system-$(ARCHAKA)),)
 run:
 	qemu-system-$(ARCHAKA) -kernel $(OUTPUT)
 endif
-
-all: Base.kernel
 Base.kernel: $(OBJS) $(ARCHDIR)/$(LOADER)/linker.ld
 	$(CC) -T $(ARCHDIR)/$(LOADER)/linker.ld -o $(OUTPUT) $(CFLAGS) $(LINK_LIST)
 .c.o:
