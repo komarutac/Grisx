@@ -5,6 +5,11 @@
 #include "RSDP.h"
 #include <Abstraction/Console.h>
 #include <string.h>
+#include <balloc.h>
+#include <macro.h>
+
+ACPILookupEntry* ACPILookupTable;
+size_t ACPILookupIndex;
 
 // TODO: Make the SearchForRSDP function better
 size_t SearchForRSDP()
@@ -45,17 +50,6 @@ void ACPIUninit(DALDevice* Device)
 	Device->SendKrnMessage(MsgDevUnloaded, Device);
 }
 
-void PrintSDT(SDT* Table)
-{
-	char Magic[sizeof(Table->Magic) + 1];
-	for (size_t i = 0; i < sizeof(Table->Magic); i++)
-	{
-		Magic[i] = Table->Magic[i];
-	}
-	Magic[sizeof(Table->Magic)] = '\0';
-	printf("Found ACPI Table: %s %d bytes.\n", Magic, Table->Size);
-}
-
 void ACPIInit(DALDevice* Device)
 {
 	size_t RSDPPtr = SearchForRSDP();
@@ -64,26 +58,22 @@ void ACPIInit(DALDevice* Device)
 	{
 		RSDP* ACPIRSDP = (RSDP*)RSDPPtr;
 		RSDT* ACPIRSDT = (RSDT*)ACPIRSDP->RSDTAddress;
+		ACPILookupEntry* Current;
 		size_t TotalBytes = 0;
 		int TotalTables = 0;
 		TotalTables++;
 		TotalBytes += ACPIRSDT->Size;
+
+		ACPILookupTable = allocator(bump, alloc)(sizeof(ACPILookupEntry*));
+		Current = ACPILookupTable;
 		
 		for (uint64_t i = 0; i < (ACPIRSDT->Size - sizeof(SDT)) / 4; i++)
 		{
 			SDT* Table = (SDT*)ACPIRSDT->OtherSDT[i];
-			if (memcmp(Table->Magic, "SSDT", 4) == 0 || memcmp(Table->Magic, "DSDT", 4) == 0 ||
-				memcmp(Table->Magic, "PSDT", 4) == 0)
-			{
-			}
-			else if (memcmp(Table->Magic, "FACP", 4) == 0)
-			{
-				FADT* FixedTable = (FADT*)Table;
-				if (FixedTable->SMICmdPort == 0 || FixedTable->ACPIEnable == 0)
-				{
-					Device->SendKrnMessage(MsgDevError, Device);
-				}
-			}
+			Current->Pointer = Table;
+			Current->Next = allocator(bump, alloc)(sizeof(ACPILookupEntry));
+			Current = Current->Next;
+	
 			TotalTables++;
 			TotalBytes += Table->Size;
 		}
