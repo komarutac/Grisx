@@ -65,7 +65,7 @@ void VCSetFont(uint8_t *Buffer, uint16_t FontHeight)
 	}
 
 	VCWriteRegister(0x3C4, 2, seq2);
-	VCWriteRegister(0x3C4, 4, seq2);
+	VCWriteRegister(0x3C4, 4, seq4);
 	VCWriteRegister(0x3CE, 4, gc4);
 	VCWriteRegister(0x3CE, 5, gc5);
 	VCWriteRegister(0x3CE, 6, gc6);
