@@ -23,5 +23,5 @@ Start:
 	cli
     mov $StackTop, %esp
     push %ebx
-    call GDTInstall
+    push %eax
     call Loader
