@@ -16,7 +16,6 @@ ISRStub:
     push eax
     mov eax, ISRHandler
     call eax
-    ;mov eax, esp
     pop eax
     pop gs
     pop fs
