@@ -64,6 +64,7 @@ $(OBJS) \
 $(LIBS)
 
 ifneq ($(shell which qemu-system-$(ARCHAKA)),)
+$(info Detected qemu-system-$(ARCHAKA). Adding run option)
 .PHONY: all clean run
 else
 .PHONY: all clean
