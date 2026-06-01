@@ -72,12 +72,12 @@ void VCSetFont(uint8_t *Buffer, uint16_t FontHeight)
 }
 
 void VCUpdate() {
-	DefaultConsole->Busy = 1;
+	DefaultConsole->Status |= 0b0001; // Set busy bit
 	for (size_t i = 0; i < VCResWidth * VCResHeight; i++) {
 		if (DefaultConsole->TextBuffer[i] == VCCharEntry(' ', 0) ||
 			VCTextBuffer0[i] == DefaultConsole->TextBuffer[i])
 			continue;
 		VCTextBuffer0[i] = DefaultConsole->TextBuffer[i];
 	}
-	DefaultConsole->Busy = 0;
+	DefaultConsole->Status &= ~0b0001; // Clear busy bit
 }

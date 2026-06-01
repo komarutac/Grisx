@@ -11,7 +11,7 @@ struct _ConsoleStruct
     int Height;
     int X;
     int Y;
-    int Busy;
+    char Status;
     void (*WriteChar)(uint8_t Char);
     void (*WriteCharAt)(uint8_t Char, int X, int Y);
     void (*WriteString)(char* Text);
@@ -20,6 +20,10 @@ struct _ConsoleStruct
     void (*SetBackgroundColor)(ARGB Color);
     uint16_t* TextBuffer;
 }; typedef struct _ConsoleStruct ConsoleStruct;
+
+// Status Bit
+// Bit 1 (Busy)
+// Bits 2-4 (Reserved)
 
 extern ConsoleStruct* DefaultConsole;
 extern ConsoleStruct* DebugConsole;

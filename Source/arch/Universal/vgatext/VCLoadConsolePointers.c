@@ -2,7 +2,7 @@
 #include <vgatext.h>
 
 void VCLoadConsolePointers() {
-	DefaultConsole->Busy = 1;
+	DefaultConsole->Status |= 0b0001; // Set busy bit
 	DefaultConsole->X = 0;
 	DefaultConsole->Y = 0;
 	DefaultConsole->Width = VCResWidth;
@@ -13,6 +13,6 @@ void VCLoadConsolePointers() {
 	DefaultConsole->SetForegroundColor = &VCSetForegroundColor;
 	DefaultConsole->SetBackgroundColor = &VCSetBackgroundColor;
 	DefaultConsole->WriteCharAt = &VCWriteCharAt;
-	DefaultConsole->Busy = 0;
 	DefaultConsole->TextBuffer = VCConsoleBuffer;
+	DefaultConsole->Status &= ~0b0001; // Clear busy bit
 }

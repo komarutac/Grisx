@@ -4,9 +4,9 @@
 #include <stdbool.h>
 
 void VCClear() {
-	DefaultConsole->Busy = true;
+	DefaultConsole->Status |= 0b0001; // Set busy bit
 	for (size_t i = 0; i < VCResWidth * VCResHeight; i++) {
 		VCTextBuffer0[i] = VCCharEntry(' ', VCTextColor);
 	}
-	DefaultConsole->Busy = false;
+	DefaultConsole->Status &= ~0b0001; // Clear busy bit
 }

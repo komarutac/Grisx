@@ -8,12 +8,12 @@ int SerialRegister = 0;
 
 void SerialLoadConsole()
 {
-	DefaultConsole->Busy = 1;
+	DefaultConsole->Status |= 0b0001; // Set busy bit
 	DefaultConsole->X = 0;
 	DefaultConsole->Y = 0;
 	DefaultConsole->WriteChar = &SerialWriteByte;
 	DefaultConsole->WriteString = &SerialWriteString;
-	DefaultConsole->Busy = 0;
+	DefaultConsole->Status &= ~0b0001; // Clear busy bits
 }
 
 uint8_t SerialWrite(uint8_t Data)

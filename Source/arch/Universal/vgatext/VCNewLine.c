@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 void VCNewLine() {
-	DefaultConsole->Busy = true;
+	DefaultConsole->Status |= 0b0001; // Set busy bit
 
 	if (DefaultConsole->Y++ == VCResHeight) {
 		VCScrollDown();
@@ -11,5 +11,5 @@ void VCNewLine() {
 	};
 
 	VMoveCursor(DefaultConsole->Y, DefaultConsole->X);
-	DefaultConsole->Busy = false;
+	DefaultConsole->Status &= ~0b0001; // Clear busy bit
 }
