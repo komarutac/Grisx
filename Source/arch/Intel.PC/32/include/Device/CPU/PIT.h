@@ -21,6 +21,6 @@ extern void TimerHandler(Registers* Regs);
 extern void TimerWait(int Ticks);
 extern void PITInit();
 extern void PITUninit();
-extern void* PITCommandFunc(int Function, void* Arguments, DALDevice* Device);
+extern void* PITCommandFunc(char Function, void* Arguments, DALDevice* Device);
 extern void PITInit(DALDevice* Device);
 extern void PITUninit(DALDevice* Device);
