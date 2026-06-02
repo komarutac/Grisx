@@ -1,6 +1,7 @@
 #include <Abstraction/PAL.h>
 #include <Abstraction/DAL.h>
 #include <stdint.h>
+#include <stddef.h>
 #include <Device/CPU/PIC.h>
 #include <Device/CPU/PIT.h>
 #include <Device/Terminal/Keyboard.h>
@@ -18,9 +19,12 @@ void PlatformInit(DALDevice* Device)
 	Device->SendKrnMessage(MsgDevReady, Device);
 }
 
-void* PlatformCommand(int Function, void* Arguments, DALDevice* Device)
+void* PlatformCommand(char Function, void* Arguments, DALDevice* Device)
 {
 	(void)Device;
+	(void)Arguments;
+	(void)Device;
+	
 	switch (Function)
 	{
 	case DevCMDHasFunction:
@@ -28,6 +32,8 @@ void* PlatformCommand(int Function, void* Arguments, DALDevice* Device)
 	default:
 		break;
 	}
+
+	return NULL;
 }
 
 DALDevice* PALDevice = &(DALDevice)
