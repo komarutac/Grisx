@@ -3,6 +3,7 @@
 char* PPICurrentFunction = "undefined";
 Registers PrevRegisters;
 
-void PPITrace(char* Function)
+void PPITrace(const char* Function)
 {
+	(void)Function;
 }
