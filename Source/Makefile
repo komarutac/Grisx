@@ -79,7 +79,7 @@ endif
 Base.kernel: $(OBJS) $(ARCHDIR)/$(LOADER)/linker.ld
 	$(CC) -T $(ARCHDIR)/$(LOADER)/linker.ld -o $(OUTPUT) $(CFLAGS) $(LINK_LIST)
 .c.o:
-	$(CC) -MD -c $< -o $@ -std=c11 $(CFLAGS) $(CPPFLAGS)
+	$(CC) -MD -c $< -o $@ -std=c99 $(CFLAGS) $(CPPFLAGS)
 .S.o:
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 .asm.o:
