@@ -15,8 +15,7 @@ struct _VFSMount {
 struct _VFSEntry {
 	char* Name;
 	char* Extension;
-	bool Directory;
-	bool MountLink;
+	uint16_t Flags;
 	size_t Size;
 	VFSMount* Mount;
     int (*Read)(struct _VFSEntry* Entry, char* Buffer, size_t Size);
@@ -26,6 +25,12 @@ struct _VFSEntry {
 	struct _VFSEntry* Previous;
 	struct _VFSEntry* Next;
 }; typedef struct _VFSEntry VFSEntry;
+
+// Flags
+// Bit 1 (Directory)
+// Bit 2 (Virtual)
+// Bit 3 (Mount Link)
+// Bit 4-9 (Reserved)
 
 extern VFSEntry* VFSRoot;
 extern VFSEntry* VFSLast;

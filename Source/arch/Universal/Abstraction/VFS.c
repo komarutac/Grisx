@@ -26,7 +26,6 @@ VFSEntry* VFSLast = 0;
 VFSEntry* VFSCreateFile(char* Name)
 {
 	VFSEntry* Entry = allocator(bump, alloc)(sizeof(VFSEntry));
-	Entry->Directory = false;
 	Entry->Name = allocator(bump, alloc)(strlen(Name) + 1);
 	strcpy(Name, Entry->Name);
 	return Entry;
@@ -35,7 +34,7 @@ VFSEntry* VFSCreateFile(char* Name)
 VFSEntry* VFSCreateDirectory(char* Name)
 {
 	VFSEntry* Entry = allocator(bump, alloc)(sizeof(VFSEntry));
-	Entry->Directory = true;
+	Entry->Flags |= 0b000000001; // Set directory bit
 	Entry->Name = allocator(bump, alloc)(strlen(Name) + 1);
 	strcpy(Name, Entry->Name);
 	return Entry;
