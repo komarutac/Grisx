@@ -61,3 +61,7 @@ extern void VCWriteChar(uint8_t Char);
 extern void VCWriteString(char* Text);
 extern void VCWriteLine(char* Text);
 extern void VCLoadConsolePointers();
+extern void VDisableCursor();
+extern uint16_t VGetCursorPosition();
+extern void VEnableCursor(const uint8_t Start, const uint8_t End);
+extern void VMoveCursor(const uint8_t Top, const uint8_t Left);
