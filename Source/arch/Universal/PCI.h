@@ -24,6 +24,6 @@ extern dependent uint16_t PCIReadConfig(uint8_t Bus, uint8_t Slot, uint8_t Funct
 extern dependent uint8_t PCIReadByte(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset);
 extern independent void PCIUninit();
 extern independent void PCIInit();
-extern independent void* PCICommand(int Function, void* Arguments, DALDevice*);
+extern independent void* PCICommand(char Function, void* Arguments, DALDevice*);
 extern independent bool PCITest(DALDevice* Device);
 extern DALDevice* PCIDevice;
