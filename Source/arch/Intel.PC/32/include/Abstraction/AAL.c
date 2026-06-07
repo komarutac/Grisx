@@ -11,7 +11,7 @@ void ArchInit(DALDevice* Device)
 	Device->SendKrnMessage(MsgDevReady, Device);
 }
 
-void* ArchCommand(int Function, void* Arguments, DALDevice* Device) {
+void* ArchCommand(char Function, void* Arguments, DALDevice* Device) {
     PPITrace(__FUNCTION__);
     (void)Arguments;
     (void)Device;
@@ -27,8 +27,9 @@ void* ArchCommand(int Function, void* Arguments, DALDevice* Device) {
         __asm__ ("hlt");
         break;
     default:
-        return NULL;
+        break;
     }
+    return NULL;
 }
 
 DALDevice* ArchDevice = &(DALDevice)
