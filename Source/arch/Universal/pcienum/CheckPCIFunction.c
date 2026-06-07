@@ -1,6 +1,8 @@
 #include <Abstraction/DAL.h>
 #include <PCI.h>
 #include <stdint.h>
+#include <macro.h>
+#include <balloc.h>
 
 char* BusName = "bus";
 

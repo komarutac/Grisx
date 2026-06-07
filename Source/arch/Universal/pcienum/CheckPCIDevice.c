@@ -2,6 +2,8 @@
 #include <PCI.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <macro.h>
+#include <balloc.h>
 
 DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice)
 {
