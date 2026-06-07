@@ -86,7 +86,7 @@ void ACPIInit(DALDevice* Device)
 	}
 }
 
-void* ACPICommand(int Function, void* Arguments, DALDevice* Device)
+void* ACPICommand(char Function, void* Arguments, DALDevice* Device)
 {
 	(void)Function;
 	(void)Arguments;

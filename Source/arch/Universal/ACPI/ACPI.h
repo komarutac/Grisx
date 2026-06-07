@@ -40,5 +40,5 @@ extern size_t ACPILookupIndex;
 extern DALDevice* ACPISystem;
 extern void ACPIUninit(DALDevice* Device);
 extern void ACPIInit(DALDevice* Device);
-extern void* ACPICommand(int Function, void* Arguments, DALDevice* Device);
+extern void* ACPICommand(char Function, void* Arguments, DALDevice* Device);
 extern void ACPINoDriverInit(DALDevice* Device);
