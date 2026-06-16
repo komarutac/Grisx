@@ -6,11 +6,8 @@ endif
 
 ifneq ($(shell which clang),)
 CC=clang
-endif
-
 include Profile/intel.pc.32.base.multiboot.mk
-
-ifeq ($(CC),)
+else
 ifneq ($(shell which $(ARCHAKA)-$(OUTPUTFORMAT)-gcc),)
 CC=$(ARCHAKA)-$(OUTPUTFORMAT)-gcc
 endif
