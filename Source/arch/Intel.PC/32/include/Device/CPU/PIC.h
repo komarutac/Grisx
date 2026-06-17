@@ -1,5 +1,4 @@
-#ifndef C_DEVICE_8259_PIC_HEADER
-#define C_DEVICE_8259_PIC_HEADER
+#pragma once
 #include <stdint.h>
 #include <Device/IO.h>
 #include <Abstraction/DAL.h>
@@ -36,4 +35,3 @@ uint16_t GetISRPIC();
 void DisablePIC();
 void PICUninit(DALDevice* Device);
 void PICInit(DALDevice* Device);
-#endif

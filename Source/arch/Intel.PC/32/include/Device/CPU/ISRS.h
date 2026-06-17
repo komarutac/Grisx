@@ -1,5 +1,4 @@
-#ifndef C_CPU_ISRS_HEADER
-#define C_CPU_ISRS_HEADER
+#pragma once
 #include <Device/CPU/Interrupt.h>
 #include <stdbool.h>
 // http://www.osdever.net/bkerndev/Docs/isrs.htm
@@ -49,4 +48,3 @@ void RegisterIRQHandler(int IRQ, void (*Handler)(Registers* Regs));
 void UnregisterIRQHanlder(int IRQ);
 void ISRSInstall();
 Registers* ISRHandler(Registers* Regs);
-#endif
