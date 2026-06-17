@@ -15,13 +15,13 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 	BaseClass = PCIReadByte(Bus, Device, Function, 0x8 + 3);
 	SubClass = PCIReadByte(Bus, Device, Function, 0x8 + 2);
 	uint16_t VendorID = PCIReadWord(Bus, Device, Function, 0x00);
+	uint16_t DeviceID = PCIReadWord(Bus, Device, Function, 0x02);
 
 	if (VendorID == 0xFFFF)
 	{
 		return;
 	}
 	
-	uint16_t DeviceID = PCIReadWord(Bus, Device, Function, 0x02);
 	ParentDevice->Properties->Class = BaseClass;
 	ParentDevice->Properties->SubClass = SubClass;
 	ParentDevice->Properties->Vendor = VendorID;
