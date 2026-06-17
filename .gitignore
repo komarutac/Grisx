@@ -52,5 +52,10 @@ Mkfile.old
 dkms.conf
 /.vs
 
+*.gz
+*.iso
+
+Source/isolinux
+Source/cd
 .vscode/
 .config
