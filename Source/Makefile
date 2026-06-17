@@ -85,6 +85,8 @@ Base.kernel: $(OBJS) $(ARCHDIR)/$(LOADER)/linker.ld
 .asm.o:
 	$(AS) $(ASFLAGS) $< -o $@
 clean:
+	rm -rf cd
+	rm -f Result.iso
 	rm -f $(OUTPUT)
 	rm -f $(OBJS)
 	rm -f $(OBJS:.o=.d)
