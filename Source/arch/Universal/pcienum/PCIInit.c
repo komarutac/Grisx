@@ -7,7 +7,7 @@
 void PCIInit(DALDevice* Device)
 {
 	uint8_t Function, Bus, HeaderType;
-	HeaderType = PCIReadConfig(0, 0, 0, 0xC + 2);
+	HeaderType = PCIReadWord(0, 0, 0, 0xC + 2);
 
 	if ((HeaderType & 0x80) == 0)
 	{
@@ -26,7 +26,7 @@ void PCIInit(DALDevice* Device)
 	{
 		for (Function = 0; Function < 8; Function++)
 		{
-			if (PCIReadConfig(Bus, 0, Function, 0) == 0xFFFF)
+			if (PCIReadWord(Bus, 0, Function, 0) == 0xFFFF)
 			{
 				break;
 			}

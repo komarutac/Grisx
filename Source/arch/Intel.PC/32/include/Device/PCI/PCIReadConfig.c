@@ -2,7 +2,7 @@
 #include <PCI.h>
 #include <Device/IO.h>
 
-uint16_t PCIReadConfig(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset)
+uint16_t PCIReadWord(uint8_t Bus, uint8_t Slot, uint8_t Function, uint8_t Offset)
 {
 	uint32_t Address, Bus32, Slot32, Function32;
 	uint16_t Result;
