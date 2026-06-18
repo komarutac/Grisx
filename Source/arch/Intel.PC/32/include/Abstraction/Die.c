@@ -8,6 +8,7 @@
 #include <Build/Make.h>
 #include <Build/Linker.h>
 #include <Device/CPU/CR.h>
+#include <Device/CPU/EFLAGS.h>
 
 void DieFault(char* Message, Registers* Regs, bool Die)
 {
@@ -57,6 +58,22 @@ void DieFault(char* Message, Registers* Regs, bool Die)
 			(CR3 >> 8) & CR3PBDR,
 			CR3 & CR3PCD ? "Enabled" : "Disabled",
 			CR3 & CR3PWT ? "Enabled" : "Disabled");
+			
+	printf("EFLAGS: "
+			"TF %s, "
+			"IF %s, "
+			"IPOL 0x%X, "
+			"NF %s, "
+			"RF %s, "
+			"VM %s, "
+			"AC %s\r\n",
+			Regs->EFLAGS & EFLAGSTF ? "Enabled" : "Disabled",
+			Regs->EFLAGS & EFLAGSIF ? "Enabled" : "Disabled",
+			(Regs->EFLAGS >> 11) & EFLAGSIPOL,
+			Regs->EFLAGS & EFLAGSNF ? "Enabled" : "Disabled",
+			Regs->EFLAGS & EFLAGSRF ? "Enabled" : "Disabled",
+			Regs->EFLAGS & EFLAGSVM ? "Enabled" : "Disabled",
+			Regs->EFLAGS & EFLAGSAC ? "Enabled" : "Disabled");
 
 	printf("Message: %s\r\n", Message);
 	
