@@ -7,6 +7,7 @@
 #include <PPI.h>
 #include <Build/Make.h>
 #include <Build/Linker.h>
+#include <Device/CPU/CR.h>
 
 void DieFault(char* Message, Registers* Regs, bool Die)
 {
@@ -21,7 +22,42 @@ void DieFault(char* Message, Registers* Regs, bool Die)
 	{
 		printf("Program Range: Unknown\r\n");
 	}
-	printf("Register Struct: 0x%X\r\n", Regs);
+
+	uint32_t CR0 = GetCR0();
+	uint32_t CR3 = GetCR3();
+
+	printf("Control Register 0: ");
+	printf("PG %s, "
+			"CD %s, "
+			"NW %s, "
+			"AM %s, "
+			"WP %s, "
+			"NE %s, "
+			"ET %s, "
+			"TS %s, "
+			"EM %s, "
+			"MP %s, "
+			"PE %s\r\n", 
+		CR0 & CR0PG ? "Enabled" : "Disabled", 
+		CR0 & CR0CD ? "Enabled" : "Disabled", 
+		CR0 & CR0NW ? "Enabled" : "Disabled", 
+		CR0 & CR0AM ? "Enabled" : "Disabled", 
+		CR0 & CR0WP ? "Enabled" : "Disabled", 
+		CR0 & CR0NE ? "Enabled" : "Disabled", 
+		CR0 & CR0ET ? "Enabled" : "Disabled", 
+		CR0 & CR0TS ? "Enabled" : "Disabled", 
+		CR0 & CR0EM ? "Enabled" : "Disabled", 
+		CR0 & CR0MP ? "Enabled" : "Disabled", 
+		CR0 & CR0PE ? "Enabled" : "Disabled");
+	printf("Control Register 2: 0x%X\r\n", GetCR2());
+	printf("Control Register 3: "
+			"PBDR 0x%X, "
+			"PCD %s, "
+			"PWT %s\r\n",
+			(CR3 >> 8) & CR3PBDR,
+			CR3 & CR3PCD ? "Enabled" : "Disabled",
+			CR3 & CR3PWT ? "Enabled" : "Disabled");
+
 	printf("Message: %s\r\n", Message);
 	
 	__asm ("cli");
