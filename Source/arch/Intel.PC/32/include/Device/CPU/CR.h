@@ -20,3 +20,7 @@ extern uint32_t GetCR0();
 extern uint32_t GetCR1();
 extern uint32_t GetCR2();
 extern uint32_t GetCR3();
+extern uint32_t SetCR0(uint32_t Value);
+extern uint32_t SetCR1(uint32_t Value);
+extern uint32_t SetCR2(uint32_t Value);
+extern uint32_t SetCR3(uint32_t Value);
