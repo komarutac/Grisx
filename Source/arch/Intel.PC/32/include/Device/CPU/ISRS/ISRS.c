@@ -12,7 +12,7 @@ void* IRQRoutines[255];
 char* ExceptionMessages[32] = {
     "Divide Error",
     "Debug Exception",
-    "NMI Interrupt",
+    "Non-Maskable Interrupt",
     "Breakpoint",
     "INTO-detected Overflow",
     "BOUND Range Exceeded",
