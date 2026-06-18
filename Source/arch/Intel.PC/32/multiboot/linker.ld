@@ -1,7 +1,7 @@
 ENTRY(Start)
 SECTIONS
 {
-    . = 1M;
+    . = 2M;
 	StartProgram = .;
 	.text BLOCK(4K) : ALIGN(4K)
 	{
