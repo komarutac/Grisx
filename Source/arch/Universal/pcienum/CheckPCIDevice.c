@@ -19,7 +19,7 @@ DALDevice* CheckPCIDevice(uint8_t Bus, uint8_t Device, DALDevice* BusDevice)
 	SubDevice->Name = Generic;
 	
 	CheckPCIFunction(Bus, Device, Function, SubDevice);
-	uint8_t HeaderType = PCIReadWord(Bus, Device, Function, 0xC + 2);
+	uint8_t HeaderType = PCIReadByte(Bus, Device, Function, 0xC + 2);
 	SubDevice->Properties->HeaderType = HeaderType;
 	if ((HeaderType & 0x80) != 0) 
 	{
