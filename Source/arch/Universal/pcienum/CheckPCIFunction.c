@@ -29,7 +29,7 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 	ParentDevice->Properties->DeviceID = DeviceID;
 	PCIApplyName(BaseClass, SubClass, 0, ParentDevice);
 
-	if ((HeaderType & ~0b10000000) == 0)
+	if ((HeaderType & ~(1 << 7)) == 0)
 	{
 		// TODO: Do something with the BARs
 		for (int i = 0x10; i < 0x24; i += 4)
@@ -43,15 +43,15 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 				continue;
 			}
 
-			if (BAR & 0b00000000000000000000000000000001)
+			if (BAR & 1)
 			{
 				// IO
 			}
 			else
 			{
 				// Memory
-				unsigned char Type = (BAR & 0b00000000000000000000000000000110) >> 1;
-				
+				unsigned char Type = (BAR & (3 << 1)) >> 1;
+
 				if (Type == 0)
 				{
 					// 32-Bit
@@ -69,7 +69,7 @@ void CheckPCIFunction(uint8_t Bus, uint8_t Device, uint8_t Function, DALDevice* 
 		SecondaryBus = PCIReadByte(Bus, Device, Function, 0x18 + 1);
 
 		DALDevice* SubDevice = allocator(bump, alloc)(sizeof(DALDevice));
-		SubDevice->Name = BusName;
+		SubDevice->Name = BusName;						
 		
 		CheckPCIBus(SecondaryBus, SubDevice);
 		RegisterDALDeviceChild(ParentDevice, SubDevice, PCIDevice->SendKrnMessage);
