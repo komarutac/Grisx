@@ -9,7 +9,7 @@
 #define PITChannel3 0x42
 
 extern volatile int TimerTicks;
-extern volatile int TimerSeconds;
+extern volatile int TimerCountDown;
 extern DALDevice* PITDevice;
 
 extern void SetTimerHz(int HZ);
