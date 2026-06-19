@@ -5,7 +5,7 @@ void TimerHandler(Registers* Regs) {
 	(void)Regs;
 	TimerTicks++;
 
-	if (TimerCountDown != 0)
+	if (TimerCountDown > 0)
 	{
 		TimerCountDown--;
 	}
