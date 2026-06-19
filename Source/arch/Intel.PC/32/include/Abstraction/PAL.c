@@ -15,7 +15,7 @@ void PlatformInit(DALDevice* Device)
 	RegisterDALDeviceChild(Device, PICDevice, MessageCallback);
 	RegisterDALDeviceChild(Device, KeyboardDevice, MessageCallback);
 	RegisterDALDeviceChild(Device, PITDevice, MessageCallback);
-	Device->Command(AALEnableInterrupts, NULL, Device);
+	__asm ("sti");
 	Device->SendKrnMessage(MsgDevReady, Device);
 }
 

@@ -71,15 +71,6 @@ Registers* ISRHandler(Registers* Regs) {
     PPITrace(__FUNCTION__);
 
     if (Regs->InterruptNumber >= 32 && Regs->InterruptNumber <= 47) {
-			//ConFormatTo(DefaultConsole, "IRQ %d triggered\n", Regs->InterruptNumber - 32);
-		if (IRQRoutines[Regs->InterruptNumber] == 0) {
-			if (Regs->InterruptNumber >= 40) {
-				outb(PICSlave, PICEOI);
-			}
-
-			outb(PICMaster, PICEOI);
-			return Regs;
-		}
         void (*Handler)(Registers* Regs) = IRQRoutines[Regs->InterruptNumber];
         if (Handler) {
             PPICurrentFunction = "<unknown>";
