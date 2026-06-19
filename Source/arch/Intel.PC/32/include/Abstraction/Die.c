@@ -28,52 +28,32 @@ void DieFault(char* Message, Registers* Regs, bool Die)
 	uint32_t CR3 = GetCR3();
 
 	printf("Control Register 0: ");
-	printf("PG %s, "
-			"CD %s, "
-			"NW %s, "
-			"AM %s, "
-			"WP %s, "
-			"NE %s, "
-			"ET %s, "
-			"TS %s, "
-			"EM %s, "
-			"MP %s, "
-			"PE %s\r\n", 
-		CR0 & CR0PG ? "Enabled" : "Disabled", 
-		CR0 & CR0CD ? "Enabled" : "Disabled", 
-		CR0 & CR0NW ? "Enabled" : "Disabled", 
-		CR0 & CR0AM ? "Enabled" : "Disabled", 
-		CR0 & CR0WP ? "Enabled" : "Disabled", 
-		CR0 & CR0NE ? "Enabled" : "Disabled", 
-		CR0 & CR0ET ? "Enabled" : "Disabled", 
-		CR0 & CR0TS ? "Enabled" : "Disabled", 
-		CR0 & CR0EM ? "Enabled" : "Disabled", 
-		CR0 & CR0MP ? "Enabled" : "Disabled", 
-		CR0 & CR0PE ? "Enabled" : "Disabled");
+	printf("PG %d, ", CR0 & CR0PG);
+	printf("CD %d, ", CR0 & CR0CD);
+	printf("NW %d, ", CR0 & CR0NW);
+	printf("AM %d, ", CR0 & CR0AM);
+	printf("WP %d, ", CR0 & CR0WP);
+	printf("NE %d, ", CR0 & CR0NE);
+	printf("ET %d, ", CR0 & CR0ET);
+	printf("TS %d, ", CR0 & CR0TS);
+	printf("EM %d, ", CR0 & CR0EM);
+	printf("MP %d, ", CR0 & CR0MP);
+	printf("PE %d\r\n", CR0 & CR0PE);
+
 	printf("Control Register 2: 0x%X\r\n", GetCR2());
-	printf("Control Register 3: "
-			"PBDR 0x%X, "
-			"PCD %s, "
-			"PWT %s\r\n",
-			(CR3 >> 8) & CR3PBDR,
-			CR3 & CR3PCD ? "Enabled" : "Disabled",
-			CR3 & CR3PWT ? "Enabled" : "Disabled");
+	printf("Control Register 3: ");
+	printf("PBDR %d, ", CR3 & CR3PBDR);
+	printf("PCD %d, ", CR3 & CR3PCD);
+	printf("PWT %d\r\n", CR3 & CR3PWT);
 			
-	printf("EFLAGS: "
-			"TF %s, "
-			"IF %s, "
-			"IPOL 0x%X, "
-			"NF %s, "
-			"RF %s, "
-			"VM %s, "
-			"AC %s\r\n",
-			Regs->EFLAGS & EFLAGSTF ? "Enabled" : "Disabled",
-			Regs->EFLAGS & EFLAGSIF ? "Enabled" : "Disabled",
-			(Regs->EFLAGS >> 11) & EFLAGSIPOL,
-			Regs->EFLAGS & EFLAGSNF ? "Enabled" : "Disabled",
-			Regs->EFLAGS & EFLAGSRF ? "Enabled" : "Disabled",
-			Regs->EFLAGS & EFLAGSVM ? "Enabled" : "Disabled",
-			Regs->EFLAGS & EFLAGSAC ? "Enabled" : "Disabled");
+	printf("EFLAGS: ");
+	printf("TF %d, ", Regs->EFLAGS & EFLAGSTF);
+	printf("IF %d, ", Regs->EFLAGS & EFLAGSIF);
+	printf("IPOL %d, ", Regs->EFLAGS & EFLAGSIPOL);
+	printf("NF %d, ", Regs->EFLAGS & EFLAGSNF);
+	printf("RF %d, ", Regs->EFLAGS & EFLAGSRF);
+	printf("VM %d, ", Regs->EFLAGS & EFLAGSVM);
+	printf("AC %d\r\n", Regs->EFLAGS & EFLAGSAC);
 
 	printf("Message: %s\r\n", Message);
 	
