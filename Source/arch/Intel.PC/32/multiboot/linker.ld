@@ -12,6 +12,7 @@ SECTIONS
 		EndText = .;
 	}
 
+	StartAllData = .;
 	.data BLOCK(4K) : ALIGN(4K)
 	{
 	    StartData = .;
@@ -26,5 +27,6 @@ SECTIONS
 		*(.bss)
 		EndBSS = .;
 	}
+	EndAllData = .;
 	EndProgram = .;
 }
