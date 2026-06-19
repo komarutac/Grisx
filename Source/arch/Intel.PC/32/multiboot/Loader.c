@@ -3,6 +3,7 @@
 #include "Loader.h"
 #include <KernelMain.h>
 #include <Abstraction/Console.h>
+#include <Build/Linker.h>
 
 MultibootHeader* Multiboot;
 
@@ -73,6 +74,8 @@ void Loader(uint32_t BootloaderMagic, MultibootHeader* Info) {
 	printf("Reclaimable physical memory right now: %d kbytes\r\n", ReclaimableMemory / 1024);
 	printf("Used physical memory right now: %d kbytes\r\n", UsedMemory / 1024);
 	printf("Physical memory entries right now: %d\r\n", Entries);
+	printf("Kernel Text: 0x%X-0X%X\r\n", (uint32_t)&StartText, (uint32_t)&EndText);
+	printf("Kernel Data: 0x%X-0X%X\r\n", (uint32_t)&StartAllData, (uint32_t)&EndAllData);
 	printf("Loading %d module(s)...\r\n", Info->ModuleCount);
 
 	uint32_t Address = Info->ModuleAddress;
