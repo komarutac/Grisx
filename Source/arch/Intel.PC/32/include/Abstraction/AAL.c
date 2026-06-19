@@ -7,7 +7,6 @@
 void ArchInit(DALDevice* Device)
 {
     PPITrace(__FUNCTION__);
-	IDTInstall();
 	Device->SendKrnMessage(MsgDevReady, Device);
 }
 

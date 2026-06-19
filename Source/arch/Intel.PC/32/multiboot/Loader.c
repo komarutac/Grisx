@@ -4,6 +4,7 @@
 #include <KernelMain.h>
 #include <Abstraction/Console.h>
 #include <Build/Linker.h>
+#include <Device/CPU/IDT.h>
 
 MultibootHeader* Multiboot;
 
@@ -17,6 +18,7 @@ void Loader(uint32_t BootloaderMagic, MultibootHeader* Info) {
 	(void)Info;
 	Multiboot = Info;
 
+	IDTInstall();
 	GDTInstall();
 	SetupVideo();
 
