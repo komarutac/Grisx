@@ -65,12 +65,11 @@ void ISRSInstall() {
 
 Registers* ISRHandler(Registers* Regs) {
     if (Regs->InterruptNumber < 32) {
-        printf("CPU exception triggered\r\n");
         DieFault(ExceptionMessages[Regs->InterruptNumber], Regs, ISRFaultDie);
     }
     PPITrace(__FUNCTION__);
 
-    if (Regs->InterruptNumber >= 32 && Regs->InterruptNumber <= 47) {
+    if (Regs->InterruptNumber >= 32 && Regs->InterruptNumber <= 128) {
         void (*Handler)(Registers* Regs) = IRQRoutines[Regs->InterruptNumber];
         if (Handler) {
             PPICurrentFunction = "<unknown>";
