@@ -1,5 +1,7 @@
 #pragma once
 #include <stdint.h>
+#define Access(DPL, S, E, DC, RW, A) 1 << 7 | DPL << 5 | S << 4 | E << 3 | DC << 2 | RW << 1 | A << 0
+#define Granularity(G, D, A, Len) G << 7 | D << 6 | A << 4 | Len
 
 // http://www.osdever.net/bkerndev/Docs/gdt.htm
 
