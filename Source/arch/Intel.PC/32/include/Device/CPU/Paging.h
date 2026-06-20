@@ -1,9 +1,22 @@
 #pragma once
-#define PagePresentBit			0b00000000000000000000000000000001
-#define PageReadWriteBit		0b00000000000000000000000000000010
-#define PageUserSupervisorBit	0b00000000000000000000000000000100
-#define PageWriteTransparentBit	0b00000000000000000000000000001000
-#define PageCacheDisableBit		0b00000000000000000000000000010000
-#define PageAccessedBit			0b00000000000000000000000000100000
-#define PageDirtyBit			0b00000000000000000000000001000000
-#define PageTableEntry uint32_t
+#define PagePresentBit			(1 << 0)
+#define PageReadWriteBit		(1 << 1)
+#define PageUserSupervisorBit	(1 << 2)
+#define PageWriteTransparentBit	(1 << 3)
+#define PageCacheDisableBit		(1 << 4)
+#define PageAccessedBit			(1 << 5)
+#define PageDirtyBit			(1 << 6)
+#define PageAvailBits           (1 << 9)
+#define PageFrameBits			(1 << 12)
+
+struct _PageTableEntry
+{
+    unsigned char P;
+    unsigned char RW;
+    unsigned char US;
+    unsigned char PWT;
+    unsigned char PCD;
+    unsigned char A;
+    unsigned char D;
+    unsigned char Avail;
+}; typedef struct _PageTableEntry PageTableEntry;
