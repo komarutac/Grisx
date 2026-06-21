@@ -9,13 +9,34 @@
 #include <Build/Linker.h>
 #include <Device/CPU/CR.h>
 #include <Device/CPU/EFLAGS.h>
+#include <Device/Terminal/Serial.h>
+#include <StringConvert.h>
 
-void DieFault(char* Message, Registers* Regs, bool Die)
+Registers* DieFault(char* Message, Registers* Regs, bool Die)
 {
 	(void)Die;
-	DefaultConsole->SetForegroundColor((ARGB) {.Red = 0xF});
-	DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0xC});
-	printf("Fatal error triggered by CPU.\r\n");
+	if (Regs->InterruptNumber != 3)
+	{
+		DefaultConsole->SetForegroundColor((ARGB) {.Red = 0xF});
+		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0xC});
+		printf("Fatal error.\r\n");
+	}
+	else if (Regs->InterruptNumber == 3)
+	{
+		DefaultConsole->SetForegroundColor((ARGB) {.Red = 0xF});
+		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0xE});
+		printf("Paused.\r\n");
+		SerialWriteString("{ACK=0}");
+		SerialWriteString("{READY=0}");
+		SerialWriteString("{PAUSE=1}");
+		SerialWriteString("{EIP=&H");
+		size_t BaseLength = GetSizeForBase(Regs->EIP, 16) + 1;
+		char NumberString[BaseLength];
+		IntegerToASCII(Regs->EIP, NumberString, SBase16, 16);
+		SerialWriteString(NumberString);
+		SerialWriteString("}");
+	}
+	
 	DefaultConsole->SetForegroundColor((ARGB) {.Red = 0x7});
 	DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0x0});
 	printf("Fault 0x%X, CS 0x%X, DS 0x%X, EAX 0x%X, EBP 0x%X, EBX 0x%X, ECX 0x%X, EDI 0x%X, EDX 0x%X, EFLAGS 0x%X, EIP 0x%X, INT 0x%X, ES 0x%X, ESI 0x%X, ESP 0x%X, FS 0x%X, GS 0x%X, SS 0x%X, USERESP 0x%X\r\n", Regs->Fault, Regs->CS, Regs->DS, Regs->EAX, Regs->EBP, Regs->EBX, Regs->ECX,
@@ -61,10 +82,42 @@ void DieFault(char* Message, Registers* Regs, bool Die)
 	printf("AC %d\r\n", Regs->EFLAGS & EFLAGSAC);
 
 	printf("Message: %s\r\n", Message);
+
+	if (Regs->InterruptNumber == 3)
+	{
+		SerialWriteString("{READY=1}");
+	}
+	else
+	{
+		__asm ("cli");
+	}
 	
-	__asm ("cli");
+	
 	for (;;)
 	{
-		__asm ("hlt");
+		if (Regs->InterruptNumber == 3)
+		{
+			if (SerialRead() == '{')
+			{
+				if (SerialRead() == 'P' &&
+					SerialRead() == 'A' &&
+					SerialRead() == 'U' &&
+					SerialRead() == 'S' &&
+					SerialRead() == 'E' &&
+					SerialRead() == '=' &&
+					SerialRead() == '0' &&
+					SerialRead() == '}')
+				{
+					SerialWriteString("{PAUSE=0}");
+					SerialWriteString("{READY=0}");
+					SerialWriteString("{ACK=1}");
+				}
+				return Regs;
+			}
+		}
+		else
+		{
+			__asm ("hlt");
+		}
 	}
 }
