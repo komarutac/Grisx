@@ -3,6 +3,10 @@ extern ISRHandler
 
 ISRStub:
     pusha
+    push ax
+    push cx
+    push dx
+    push bx
     push ds
     push es
     push fs
@@ -21,6 +25,10 @@ ISRStub:
     pop fs
     pop es
     pop ds
+    pop bx
+    pop dx
+    pop cx
+    pop ax
     popa
     add esp, 8
     iret
