@@ -40,6 +40,7 @@ extern void FreeInterrupt1();
 extern void FreeInterrupt2();
 extern void MouseInterrupt();
 extern void UnitInterrupt();
+extern void SyscallInterrupt();
 extern void PrimaryATAInterrupt();
 extern void SecondaryATAInterrupt();
 

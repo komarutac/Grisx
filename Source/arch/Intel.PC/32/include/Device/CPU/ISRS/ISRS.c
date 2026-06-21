@@ -58,6 +58,7 @@ void ISRSInstall() {
     IDTSetGate(43, (unsigned)FreeInterrupt2, 0x08, 0x8E);
     IDTSetGate(44, (unsigned)MouseInterrupt, 0x08, 0x8E);
     IDTSetGate(45, (unsigned)UnitInterrupt, 0x08, 0x8E);
+    IDTSetGate(128, (unsigned)SyscallInterrupt, 0x08, 0x8E);
     IDTSetGate(46, (unsigned)PrimaryATAInterrupt, 0x08, 0x8E);
     IDTSetGate(47, (unsigned)SecondaryATAInterrupt, 0x08, 0x8E);
     IDTLoad();
