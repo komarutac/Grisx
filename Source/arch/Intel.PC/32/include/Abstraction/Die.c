@@ -111,7 +111,7 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 					SerialWriteString("{PAUSE=0}");
 					SerialWriteString("{READY=0}");
 					SerialWriteString("{ACK=1}");
-				return Regs;
+					return Regs;
 				}
 			}
 		}
