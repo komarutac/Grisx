@@ -17,14 +17,14 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 	(void)Die;
 	if (Regs->InterruptNumber != 3)
 	{
-		DefaultConsole->SetForegroundColor((ARGB) {.Red = 0xF});
-		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0xC});
+		DefaultConsole->SetForegroundColor((ARGB) {.Red = 255, .Green = 255, .Blue = 255});
+		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 170});
 		printf("Fatal error.\r\n");
 	}
 	else if (Regs->InterruptNumber == 3)
 	{
-		DefaultConsole->SetForegroundColor((ARGB) {.Red = 0xF});
-		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0xE});
+		DefaultConsole->SetForegroundColor((ARGB) {.Red = 255, .Green = 255, .Blue = 255});
+		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 170, .Green = 85});
 		printf("Paused.\r\n");
 		SerialWriteString("{ACK=0}");
 		SerialWriteString("{READY=0}");
@@ -37,8 +37,8 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 		SerialWriteString("}");
 	}
 	
-	DefaultConsole->SetForegroundColor((ARGB) {.Red = 0x7});
-	DefaultConsole->SetBackgroundColor((ARGB) {.Red = 0x0});
+	DefaultConsole->SetForegroundColor((ARGB) {.Red = 170, .Green = 170, .Blue = 170});
+	DefaultConsole->SetBackgroundColor((ARGB) {});
 	printf("Fault 0x%X, CS 0x%X, DS 0x%X, EAX 0x%X, EBP 0x%X, EBX 0x%X, ECX 0x%X, EDI 0x%X, EDX 0x%X, EFLAGS 0x%X, EIP 0x%X, INT 0x%X, ES 0x%X, ESI 0x%X, ESP 0x%X, FS 0x%X, GS 0x%X, SS 0x%X, USERESP 0x%X\r\n", Regs->Fault, Regs->CS, Regs->DS, Regs->EAX, Regs->EBP, Regs->EBX, Regs->ECX,
 	Regs->EDI, Regs->EDX, Regs->EFLAGS, Regs->EIP, Regs->InterruptNumber, Regs->ES, Regs->ESI, Regs->ESP, Regs->FS, Regs->GS, Regs->SS, Regs->UserESP);
 	if (Regs->EIP > (unsigned int)&StartProgram && Regs->EIP < (unsigned int)&EndProgram)

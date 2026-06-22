@@ -18,7 +18,7 @@ extern uint8_t VCResTop;
 extern uint16_t* VCTextBuffer0;
 extern uint8_t VCCharLeft;
 extern uint8_t VCCharTop;
-extern uint8_t VCForegrond;
+extern uint8_t VCForeground;
 extern uint8_t VCBackground;
 extern uint8_t VCTextColor;
 extern uint8_t VCLineHeight;

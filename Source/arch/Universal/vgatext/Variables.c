@@ -5,7 +5,7 @@
 
 uint8_t VCCharLeft = 0;
 uint8_t VCCharTop = 0;
-uint8_t VCForegrond = 0x7;
+uint8_t VCForeground = 0x7;
 uint8_t VCBackground = 0x0;
 uint8_t VCTextColor = 0x07;
 uint8_t VCLineHeight = 0x01;
