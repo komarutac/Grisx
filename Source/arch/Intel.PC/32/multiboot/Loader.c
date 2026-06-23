@@ -5,6 +5,8 @@
 #include <Abstraction/Console.h>
 #include <Build/Linker.h>
 #include <Device/CPU/IDT.h>
+#include <Device/PMM/Map.h>
+#include <PMM.h>
 
 MultibootHeader* Multiboot;
 
@@ -22,60 +24,9 @@ void Loader(uint32_t BootloaderMagic, MultibootHeader* Info) {
 	GDTInstall();
 	SetupVideo();
 
-	uint32_t FreeMemory = 0;
-	uint32_t BadMemory = 0;
-	uint32_t ReclaimableMemory = 0;
-	uint32_t UsedMemory = 0;
-	uint32_t Entries = 0;
-
-	for (uint32_t i = Info->MemoryMapAddress; i < Info->MemoryMapAddress + Info->MemoryMapLength; i += 4)
-	{
-		uint32_t Byte = *(uint32_t*)i;
-
-		if (Byte == 0x14)
-		{
-			MemoryMapEntry* MemMap = (MemoryMapEntry*)i;
-
-			if (MemMap == 0)
-			{
-				continue;
-			}
-
-			if (MemMap->Address == 0 && MemMap->Length == 0)
-			{
-				continue;
-			}
-
-			if (MemMap->Type == MemoryMapTypeFree)
-			{
-				FreeMemory += MemMap->Length;
-			}
-
-			if (MemMap->Type == MemoryMapTypeBad)
-			{
-				BadMemory += MemMap->Length;
-			}
-
-			if (MemMap->Type == MemoryMapTypeReclaimable)
-			{
-				ReclaimableMemory += MemMap->Length;
-			}
-
-			if (MemMap->Type == MemoryMapTypeUsed)
-			{
-				UsedMemory += MemMap->Length;
-			}
-
-			Entries++;
-			i += sizeof(MemoryMapEntry) - 4;
-		}
-	}
-
-	printf("Free physical memory right now: %d kbytes\r\n", FreeMemory / 1024);
-	printf("Bad physical memory right now: %d kbytes\r\n", BadMemory / 1024);
-	printf("Reclaimable physical memory right now: %d kbytes\r\n", ReclaimableMemory / 1024);
-	printf("Used physical memory right now: %d kbytes\r\n", UsedMemory / 1024);
-	printf("Physical memory entries right now: %d\r\n", Entries);
+	printf("Initializing physical memory...\r\n");
+	printf("Physical Memory Layout: [");
+	PMMInit((void*)Info->MemoryMapAddress, Info->MemoryMapLength);
 	printf("Kernel Text: 0x%X-0X%X\r\n", (uint32_t)&StartText, (uint32_t)&EndText);
 	printf("Kernel Data: 0x%X-0X%X\r\n", (uint32_t)&StartAllData, (uint32_t)&EndAllData);
 	printf("Loading %d module(s)...\r\n", Info->ModuleCount);
@@ -89,6 +40,6 @@ void Loader(uint32_t BootloaderMagic, MultibootHeader* Info) {
 		Module = (ModuleTable*)(Address + Module->End);
 	}
 
-	printf("Starting kernel...");
+	printf("Starting kernel...\r\n");
 	KernelMain();
 }
