@@ -5,7 +5,7 @@
 void VCNewLine() {
 	DefaultConsole->Status |= 0b0001; // Set busy bit
 
-	if (DefaultConsole->Y++ == VCResHeight) {
+	if (DefaultConsole->Y++ + 1 == VCResHeight) {
 		VCScrollDown();
 		DefaultConsole->Y--;
 	};
