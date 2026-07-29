@@ -26,15 +26,8 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 		DefaultConsole->SetForegroundColor((ARGB) {.Red = 255, .Green = 255, .Blue = 255});
 		DefaultConsole->SetBackgroundColor((ARGB) {.Red = 170, .Green = 85});
 		printf("Paused.\r\n");
-		SerialWriteString("{ACK=0}");
-		SerialWriteString("{READY=0}");
-		SerialWriteString("{PAUSE=1}");
-		SerialWriteString("{EIP=&H");
-		size_t BaseLength = GetSizeForBase(Regs->EIP, 16) + 1;
-		char NumberString[BaseLength];
-		IntegerToASCII(Regs->EIP, NumberString, SBase16, 16);
-		SerialWriteString(NumberString);
-		SerialWriteString("}");
+		SerialWriteByte(0xA1 /* WAIT */);
+		SerialWriteByte(0xA2 /* BREAKPOINT */);
 	}
 	
 	DefaultConsole->SetForegroundColor((ARGB) {.Red = 170, .Green = 170, .Blue = 170});
@@ -85,7 +78,7 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 
 	if (Regs->InterruptNumber == 3)
 	{
-		SerialWriteString("{READY=1}");
+		SerialWriteByte(0xA3 /* READY */);
 	}
 	else
 	{
@@ -97,22 +90,10 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 	{
 		if (Regs->InterruptNumber == 3)
 		{
-			if (SerialRead() == '{')
+			if (SerialRead() == 'c')
 			{
-				if (SerialRead() == 'P' &&
-					SerialRead() == 'A' &&
-					SerialRead() == 'U' &&
-					SerialRead() == 'S' &&
-					SerialRead() == 'E' &&
-					SerialRead() == '=' &&
-					SerialRead() == '0' &&
-					SerialRead() == '}')
-				{
-					SerialWriteString("{PAUSE=0}");
-					SerialWriteString("{READY=0}");
-					SerialWriteString("{ACK=1}");
-					return Regs;
-				}
+				SerialWriteByte(0xA0 /* ACK */);
+				return Regs;
 			}
 		}
 		else
