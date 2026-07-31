@@ -4,5 +4,4 @@
 
 void VCWriteCharAt(uint8_t Char, int X, int Y) {
 	DefaultConsole->TextBuffer[VCCreateIndex(Y, X)] = VCCharEntry(Char, VCTextColor);
-	VCUpdate();
 }

@@ -13,6 +13,6 @@ void VCLoadConsolePointers() {
 	DefaultConsole->SetForegroundColor = &VCSetForegroundColor;
 	DefaultConsole->SetBackgroundColor = &VCSetBackgroundColor;
 	DefaultConsole->WriteCharAt = &VCWriteCharAt;
-	DefaultConsole->TextBuffer = VCConsoleBuffer;
+	DefaultConsole->TextBuffer = VCTextBuffer0;
 	DefaultConsole->Status &= ~0b0001; // Clear busy bit
 }

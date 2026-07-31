@@ -7,5 +7,4 @@ void VCWriteString(char* Text)
 		VCWriteChar(*Text);
 		Text++;
 	}
-	VCUpdate();
 }

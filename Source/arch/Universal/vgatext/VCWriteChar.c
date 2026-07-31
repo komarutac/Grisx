@@ -7,6 +7,7 @@ void VCWriteChar(uint8_t Char) {
 	switch (Char) {
 		case '\n':
 			VCNewLine();
+			VCWriteChar('\r');
 			return;
 		case '\t':
 			for (size_t i = 0; i < VCIndent; i++) {
@@ -15,7 +16,8 @@ void VCWriteChar(uint8_t Char) {
 			}
 			return;
 		case '\b':
-			VMoveCursor(DefaultConsole->Y, DefaultConsole->X--);
+			DefaultConsole->X--;
+			VMoveCursor(DefaultConsole->Y, DefaultConsole->X);
 			return;
 		case '\r':
 			DefaultConsole->X = 0;
