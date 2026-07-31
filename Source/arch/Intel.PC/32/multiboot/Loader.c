@@ -6,20 +6,17 @@
 #include <Build/Linker.h>
 #include <Device/CPU/IDT.h>
 #include <Device/PMM/Map.h>
+#include <Device/CPU/Paging.h>
 #include <PMM.h>
 
 MultibootHeader* Multiboot;
-
-void HandleModule(ModuleTable* Module)
-{
-	printf("Loading module %s...\r\n", Module->Name);
-}
 
 void Loader(uint32_t BootloaderMagic, MultibootHeader* Info) {
 	(void)BootloaderMagic;
 	(void)Info;
 	Multiboot = Info;
 
+	DisablePaging();
 	IDTInstall();
 	GDTInstall();
 	SetupVideo();
@@ -30,15 +27,6 @@ void Loader(uint32_t BootloaderMagic, MultibootHeader* Info) {
 	printf("Kernel Text: 0x%X-0X%X\r\n", (uint32_t)&StartText, (uint32_t)&EndText);
 	printf("Kernel Data: 0x%X-0X%X\r\n", (uint32_t)&StartAllData, (uint32_t)&EndAllData);
 	printf("Loading %d module(s)...\r\n", Info->ModuleCount);
-
-	uint32_t Address = Info->ModuleAddress;
-	ModuleTable* Module = (ModuleTable*)Address;
-
-	for (uint32_t i = 0; i < Info->ModuleCount; i++)
-	{
-		HandleModule(Module);
-		Module = (ModuleTable*)(Address + Module->End);
-	}
 
 	printf("Starting kernel...\r\n");
 	KernelMain();
