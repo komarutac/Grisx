@@ -126,7 +126,7 @@ void RegisterDALDevice(DALDevice* Device, void* MessageHandler)
 		VFSEntry* DeviceFile = allocator(bump, alloc)(sizeof(VFSEntry));
 		DeviceFile->Name = Device->Name;
 		VFSAdd(DeviceFile);
-		ConFormatTo(DefaultConsole, "Registering %s, Class 0x%X/0x%X, ID 0x%X/0x%X as a parent\r\n", Device->Name, Device->Properties->Class, Device->Properties->SubClass, Device->Properties->DeviceID, Device->Properties->Vendor);
+		ConFormatTo(DefaultConsole, "Registering %s with class 0x%X/0x%X and ID 0x%X/0x%X\r\n", Device->Name, Device->Properties->Class, Device->Properties->SubClass, Device->Properties->DeviceID, Device->Properties->Vendor);
 		DALDevices[DALDevicesIndex] = Device;
 		DALDevices[DALDevicesIndex]->SendKrnMessage = MessageHandler;
 		if (DALDevices[DALDevicesIndex]->Initialize) {
@@ -144,7 +144,7 @@ void RegisterDALDeviceChild(DALDevice* Parent, DALDevice* Child, void* MessageHa
 		VFSEntry* DeviceFile = allocator(bump, alloc)(sizeof(VFSEntry));
 		DeviceFile->Name = Child->Name;
 		VFSAdd(DeviceFile);
-		ConFormatTo(DefaultConsole, "Registering %s, Class 0x%X/0x%X, ID 0x%X/0x%X as a child\r\n", Child->Name, Child->Properties->Class, Child->Properties->SubClass, Child->Properties->DeviceID, Child->Properties->Vendor);
+		ConFormatTo(DefaultConsole, "Registering %s with class 0x%X/0x%X and ID 0x%X/0x%X\r\n", Child->Name, Child->Properties->Class, Child->Properties->SubClass, Child->Properties->DeviceID, Child->Properties->Vendor);
 		Parent->Children[Parent->ChildrenCount] = Child;
 		Parent->Children[Parent->ChildrenCount]->SendKrnMessage = MessageHandler;
 		if (Parent->Children[Parent->ChildrenCount]->Initialize) {
