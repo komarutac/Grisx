@@ -49,7 +49,6 @@ void VFSInit(void* MessageCallback) {
 }
 
 void VFSAdd(VFSEntry* Entry) {
-	printf("Adding VFS entry %s\r\n", Entry->Name);
 	VFSLast->Next = Entry;
 	VFSLast = Entry;
 }

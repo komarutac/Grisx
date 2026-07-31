@@ -15,8 +15,6 @@ void* allocator(bump, alloc)(int Size)
 		return NULL;
 	}
 
-	ConFormatTo(DefaultConsole, "Total Blocks %d, Free Blocks %d, Allocate %d blocks OK\r\n", sizeof(Blocks), sizeof(Blocks) - Offset, Size);
-
 	void* Pointer = &Blocks + Offset;
 	Offset += Size;
 	return Pointer;
@@ -24,7 +22,6 @@ void* allocator(bump, alloc)(int Size)
 
 void bclear()
 {
-	ConFormatTo(DefaultConsole, "Bump allocator clear\r\n");
 	memset(Blocks, 0, sizeof(Blocks));
 	Offset = 0;
 }
