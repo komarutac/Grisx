@@ -27,9 +27,9 @@ void VCWriteChar(uint8_t Char) {
 
 	VCAddEntry(DefaultConsole->TextBuffer, VCCharEntry(Char, VCTextColor));
 
-	if (DefaultConsole->X++ == VCResWidth) {
+	if (DefaultConsole->X++ + 1 == VCResWidth) {
 		DefaultConsole->X = 0;
-		if (DefaultConsole->Y++ == VCResHeight) {
+		if (DefaultConsole->Y++ + 1 == VCResHeight) {
 			VCScrollDown();
 			DefaultConsole->Y--;
 		}
