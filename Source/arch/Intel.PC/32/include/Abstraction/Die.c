@@ -11,6 +11,7 @@
 #include <Device/CPU/EFLAGS.h>
 #include <Device/Terminal/Serial.h>
 #include <StringConvert.h>
+#include <PMM.h>
 
 Registers* DieFault(char* Message, Registers* Regs, bool Die)
 {
@@ -47,6 +48,8 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 	printf("CR3: 0x%X, ", CR3);
 	printf("EFLAGS: 0x%X\r\n", Regs->EFLAGS);
 	printf("Message: %s\r\n", Message);
+	printf("PMM Free: %d, PMM Used: %d\r\n", FreeMemory, UsedMemory);
+	printf("VMM Free: N/A, VMM Used: N/A\r\n");
 
 	if (Regs->EIP > (unsigned int)&StartProgram && Regs->EIP < (unsigned int)&EndProgram)
 	{

@@ -34,6 +34,8 @@ void* pmalloc()
 					if (Bit & ~0xFE)
 					{
 						MemMap->PMMFree &= ~(1 << j);
+						FreeMemory -= Size;
+						UsedMemory += Size;
 						return (void*)(MemMap->Address + Size);
 					}
 					Size += 4096;

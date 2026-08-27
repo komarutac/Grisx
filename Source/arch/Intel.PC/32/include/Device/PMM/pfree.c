@@ -38,6 +38,8 @@ void pfree(void* Pointer)
                         if (Ptr == MemMap->Address + Size)
                         {
                             MemMap->PMMFree |= (1 << j);
+							FreeMemory += Size;
+							UsedMemory -= Size;
                             Pointer = 0;
                         }
 					}

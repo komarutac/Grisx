@@ -9,7 +9,6 @@ bool PMMInit(void* MemoryMap, uint32_t Length)
 {
 	MemoryMapTable = (MemoryMapEntry*)MemoryMap;
 	MemoryMapTableLength = Length;
-	uint32_t UsedMemory = 0;
 
 	for (uint32_t i = (uint32_t)MemoryMap; i < (uint32_t)MemoryMap + Length; i += 4)
 	{
@@ -110,6 +109,8 @@ bool PMMInit(void* MemoryMap, uint32_t Length)
 	{
 		printf("Warning: Free memory below recommended 4M\r\n");
 	}
+	
+	printf("Free: %d, Used: %d\r\n", FreeMemory, UsedMemory);
 
 	return true;
 }
