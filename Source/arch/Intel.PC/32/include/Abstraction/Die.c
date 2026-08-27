@@ -32,49 +32,30 @@ Registers* DieFault(char* Message, Registers* Regs, bool Die)
 	
 	DefaultConsole->SetForegroundColor((ARGB) {.Red = 170, .Green = 170, .Blue = 170});
 	DefaultConsole->SetBackgroundColor((ARGB) {});
-	printf("Fault 0x%X, CS 0x%X, DS 0x%X, EAX 0x%X, EBP 0x%X, EBX 0x%X, ECX 0x%X, EDI 0x%X, EDX 0x%X, EFLAGS 0x%X, EIP 0x%X, INT 0x%X, ES 0x%X, ESI 0x%X, ESP 0x%X, FS 0x%X, GS 0x%X, SS 0x%X, USERESP 0x%X\r\n", Regs->Fault, Regs->CS, Regs->DS, Regs->EAX, Regs->EBP, Regs->EBX, Regs->ECX,
-	Regs->EDI, Regs->EDX, Regs->EFLAGS, Regs->EIP, Regs->InterruptNumber, Regs->ES, Regs->ESI, Regs->ESP, Regs->FS, Regs->GS, Regs->SS, Regs->UserESP);
-	if (Regs->EIP > (unsigned int)&StartProgram && Regs->EIP < (unsigned int)&EndProgram)
-	{
-		printf("Program Range: Kernel <0x%X-0x%X>\r\n", &StartProgram, &EndProgram);
-	}
-	else
-	{
-		printf("Program Range: Unknown\r\n");
-	}
+
+	printf("Fault 0x%X, EBP 0x%X, EDI 0x%X, EIP 0x%X, INT 0x%X, ESI 0x%X, ESP 0x%X, USERESP 0x%X\r\n", Regs->Fault, Regs->EBP, Regs->EDI, Regs->EIP, Regs->InterruptNumber, Regs->ESI, Regs->ESP,
+	Regs->UserESP);
+	printf("AX: 0x%X, BX: 0x%X, CX: 0x%X, DX: 0x%X\r\n", Regs->AX, Regs->BX, Regs->CX, Regs->DX);
+	printf("EAX: 0x%X, EBX: 0x%X, ECX: 0x%X, EDX: 0x%X\r\n", Regs->EAX, Regs->EBX, Regs->ECX, Regs->EDX);
+	printf("CS: 0x%X, DS: 0x%X, ES: 0x%X, FS: 0x%X, GS: 0x%X, SS: 0z%X\r\n", Regs->CS, Regs->DS, Regs->ES, Regs->FS, Regs->GS, Regs->SS);
 
 	uint32_t CR0 = GetCR0();
 	uint32_t CR3 = GetCR3();
 
-	printf("Control Register 0: ");
-	printf("PG %d, ", CR0 & CR0PG);
-	printf("CD %d, ", CR0 & CR0CD);
-	printf("NW %d, ", CR0 & CR0NW);
-	printf("AM %d, ", CR0 & CR0AM);
-	printf("WP %d, ", CR0 & CR0WP);
-	printf("NE %d, ", CR0 & CR0NE);
-	printf("ET %d, ", CR0 & CR0ET);
-	printf("TS %d, ", CR0 & CR0TS);
-	printf("EM %d, ", CR0 & CR0EM);
-	printf("MP %d, ", CR0 & CR0MP);
-	printf("PE %d\r\n", CR0 & CR0PE);
-
-	printf("Control Register 2: 0x%X\r\n", GetCR2());
-	printf("Control Register 3: ");
-	printf("PBDR %d, ", CR3 & CR3PBDR);
-	printf("PCD %d, ", CR3 & CR3PCD);
-	printf("PWT %d\r\n", CR3 & CR3PWT);
-			
-	printf("EFLAGS: ");
-	printf("TF %d, ", Regs->EFLAGS & EFLAGSTF);
-	printf("IF %d, ", Regs->EFLAGS & EFLAGSIF);
-	printf("IPOL %d, ", Regs->EFLAGS & EFLAGSIPOL);
-	printf("NF %d, ", Regs->EFLAGS & EFLAGSNF);
-	printf("RF %d, ", Regs->EFLAGS & EFLAGSRF);
-	printf("VM %d, ", Regs->EFLAGS & EFLAGSVM);
-	printf("AC %d\r\n", Regs->EFLAGS & EFLAGSAC);
-
+	printf("CR0: 0x%X, ", CR0);
+	printf("CR2: 0x%X, ", GetCR2());
+	printf("CR3: 0x%X, ", CR3);
+	printf("EFLAGS: 0x%X\r\n", Regs->EFLAGS);
 	printf("Message: %s\r\n", Message);
+
+	if (Regs->EIP > (unsigned int)&StartProgram && Regs->EIP < (unsigned int)&EndProgram)
+	{
+		printf("Module: Kernel\r\n");
+	}
+	else
+	{
+		printf("Module: Unknown\r\n");
+	}
 
 	if (Regs->InterruptNumber == 3)
 	{
