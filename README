@@ -1,6 +1,6 @@
 Tools Not Tested
-Not tested with masm, gas, or fasm as the assembler.
-Not tested with pcc or msvc as the compiler.
+    Not tested with masm, gas, or fasm as the assembler.
+    Not tested with pcc or msvc as the compiler.
 
 Platform IntelPC, 32
     Build Requirements
@@ -15,11 +15,11 @@ Platform IntelPC, 32
     4. Machine: PCI
 
 Build
-Without autoconfig:
-gmake PROFILE=Profile AS=Assembler CC=CCompiler all
-With autoconfig:
-gmake all
+    Without autoconfig:
+    gmake PROFILE=Profile AS=Assembler CC=CCompiler all
+    With autoconfig:
+    gmake all
 
 Credits
-Parts of the directory structure and files are from https://gitlab.com/sortie/meaty-skeleton
-Parts of some files are made by user0-07161 from a previous project
+    Parts of the directory structure and files are from https://gitlab.com/sortie/meaty-skeleton
+    Parts of some files are made by user0-07161 from a previous project
