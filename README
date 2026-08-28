@@ -10,8 +10,8 @@ Platform IntelPC, 32
 
     Minimum System Requirements
     1. CPU: Am486SX, Am486SX2, Am486DX, Am486DX2, Am486DX4, i486SX, i486SX2, i486DX, i486DX2, iDX4, Cx486S, Cx486DX, Cx486DX2, Cx486DX4, or compatible
-    2. Memory: 2 MB
-    3. Video: CGA (Text Mode)
+    2. Memory: 4 MB
+    3. Video: VGA compatible
     4. Machine: PCI
 
 Build
